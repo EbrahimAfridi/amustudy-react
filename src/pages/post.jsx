@@ -16,7 +16,7 @@ const Post = () => {
     const [netLikes, setNetLikes] = useState(0);
     const {postId} = useParams();
 
-    const { userId } = useContext(UserContext);
+    const { loggedinUser, userId } = useContext(UserContext);
     console.log(userId);
 
     const fetchLikes = async () => {
@@ -43,29 +43,34 @@ const Post = () => {
 
     
     const handleReaction = async (likeValue, dislikeValue) => {
-        try {
-          // Check if the user has already reacted with the same type
-          const existingRecords = await pb.collection('likes').getFullList({
-            filter: `postId = "${postId}" && userId = "${userId}" && ${likeValue ? 'like = 1' : 'dislike = 1'}`,
-          });
-      
-          if (existingRecords.length > 0) {
-            // User has already reacted with the same type, delete the reaction
-            const recordId = existingRecords[0].id;
-            await pb.collection('likes').delete(recordId);
-          } else {
-            // Create a new reaction
-            await pb.collection('likes').create({
-              like: likeValue,
-              dislike: dislikeValue,
-              userId: userId,
-              postId: postId,
-            });
-          }
-      
-          fetchLikes(); // Refresh the likes count after updating
-        } catch (error) {
-          console.log(error);
+        if(loggedinUser !==''){
+
+            try {
+                // Check if the user has already reacted with the same type
+                const existingRecords = await pb.collection('likes').getFullList({
+                    filter: `postId = "${postId}" && userId = "${userId}" && ${likeValue ? 'like = 1' : 'dislike = 1'}`,
+                });
+            
+                if (existingRecords.length > 0) {
+                    // User has already reacted with the same type, delete the reaction
+                    const recordId = existingRecords[0].id;
+                    await pb.collection('likes').delete(recordId);
+                } else {
+                    // Create a new reaction
+                    await pb.collection('likes').create({
+                        like: likeValue,
+                        dislike: dislikeValue,
+                        userId: userId,
+                        postId: postId,
+                    });
+                }
+                
+                fetchLikes(); // Refresh the likes count after updating
+            } catch (error) {
+                console.log(error);
+            }
+        }else{
+            alert('You need to login to vote on the post.')
         }
       };
       
