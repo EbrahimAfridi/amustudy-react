@@ -68,7 +68,7 @@ const Form = ({refresh}) => {
   };
 
   return (
-    <div className={`mt-[15vh] p-4 mr-5 bg-[#fafbfb] text-black font-medium rounded-lg shadow ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-auto'}`}>
+    <div className={`mt-[15vh] p-4 mx-5 sm:ml-0 sm:mr-5 bg-[#fafbfb] text-black font-medium rounded-lg shadow ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-auto'}`}>
       <div className="flex flex-col items-center space-x-4 mb-4">
       <input
           type="text"

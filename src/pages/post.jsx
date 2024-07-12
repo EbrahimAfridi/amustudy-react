@@ -14,6 +14,7 @@ const Post = () => {
     
     const [post, setPost] = useState({})
     const [netLikes, setNetLikes] = useState(0);
+    const[ username, setUsername] = useState('');
     const {postId} = useParams();
 
     const { loggedinUser, userId } = useContext(UserContext);
@@ -73,7 +74,12 @@ const Post = () => {
         const postView = async () => {
 
             try {
-                const record = await pb.collection('posts').getOne(postId);
+                const record = await pb.collection('posts').getOne(postId, {
+                    expand: "user",
+                  });
+                const username = record?.expand?.user?.username;
+                console.log(username);
+                setUsername(username);
                 setPost(record);
                 console.log(record)
               } catch (error) {
@@ -96,7 +102,7 @@ const Post = () => {
                         <img src={User} className='w-[30px]'/>
                     </div>
                     <div className='flex flex-col'>
-                        <span className="font-medium text-black">{post.user}</span>
+                        <span className="font-medium text-black">{username}</span>
                         <p className="text-gray-500 text-sm">
                             {post.updated ? formatDistanceToNow(new Date(post.updated)) + ' ago' : 'N/A'}
                         </p>
