@@ -58,16 +58,25 @@ const Post = () => {
                     filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
                 });
                 
+                let newNetLikes = netLikes;
+
                 if (existingRecords.length > 0) {
                     if(likeValue === existingRecords[0].like){
 
-                        // User has already reacted with the same type, delete the reaction
-                        // setVote(existingRecords[0].like);
-                        console.log('ididi')
+                        newNetLikes -= likeValue;
+                        setVote(null);
+                        setNetLikes(newNetLikes);
+                        console.log("right now");
                         const recordId = existingRecords[0].id;
                         await pb.collection('likes').delete(recordId);
                         fetchLikes(); // Refresh the likes count after updating
+
                     }else if(likeValue !== existingRecords[0].like){
+
+                        newNetLikes += 2 * likeValue;
+                        setVote(likeValue);
+                        setNetLikes(newNetLikes);
+
                         const recordId = existingRecords[0].id;
                         await pb.collection('likes').delete(recordId);
 
@@ -79,6 +88,11 @@ const Post = () => {
                         fetchLikes(); // Refresh the likes count after updating
                     }
                 } else {
+
+                    newNetLikes += likeValue;
+                    setVote(likeValue);
+                    setNetLikes(newNetLikes);
+
                     // Create a new reaction
                     await pb.collection('likes').create({
                         "like": likeValue,
