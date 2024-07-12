@@ -23,8 +23,12 @@ const Post = () => {
             const records = await pb.collection('post_likes').getFullList({
                 filter: `postId = "${postId}"`,
             });
-            
-            setNetLikes(records[0].netLikes);
+
+            if(records.length!== 0){
+                setNetLikes(records[0].netLikes);
+            }else{
+                setNetLikes(0);
+            }
         }catch(error){
             console.log(error);
         }
@@ -35,32 +39,26 @@ const Post = () => {
         if(loggedinUser.username !== ''){
 
             try {
-
-                await pb.collection('likes').create({
-                    "like": likeValue,
-                    "userId": userId,
-                    "postId": postId,
-                });
-
                 // Check if the user has already reacted with the same type
-                // const existingRecords = await pb.collection('likes').getFullList({
-                //     filter: `postId = "${postId}"` && `userId = ${userId}`,
-                // });
+                const existingRecords = await pb.collection('likes').getFullList({
+                    filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
+                });
             
-                // if (existingRecords.length > 0) {
-                //     // User has already reacted with the same type, delete the reaction
-                //     const recordId = existingRecords[0].id;
-                //     await pb.collection('likes').delete(recordId);
-                // } else {
-                //     // Create a new reaction
-                //     await pb.collection('likes').create({
-                //         "like": likeValue,
-                //         "userId": `${userId}`,
-                //         "postId": postId,
-                //     });
-                // }
+                if (existingRecords.length > 0) {
+                    // User has already reacted with the same type, delete the reaction
+                    const recordId = existingRecords[0].id;
+                    await pb.collection('likes').delete(recordId);
+                    fetchLikes(); // Refresh the likes count after updating
+                } else {
+                    // Create a new reaction
+                    await pb.collection('likes').create({
+                        "like": likeValue,
+                        "userId": userId,
+                        "postId": postId,
+                    });
+                    fetchLikes(); // Refresh the likes count after updating
+                }
                 
-                fetchLikes(); // Refresh the likes count after updating
             } catch (error) {
                 console.log(error);
             }

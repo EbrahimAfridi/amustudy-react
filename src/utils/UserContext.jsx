@@ -13,7 +13,8 @@ export const UserProvider = ({ children }) => {
       setLoggedinUser(pb.authStore.model.username);
       setUserId(pb.authStore.model.id);
     } else {
-      setLoggedinUser({});
+      setLoggedinUser('');
+      setUserId('');
     }
   };
 
