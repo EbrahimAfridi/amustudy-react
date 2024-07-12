@@ -15,6 +15,7 @@ const Post = () => {
     const [post, setPost] = useState({})
     const [netLikes, setNetLikes] = useState(0);
     const[ username, setUsername] = useState('');
+    const [vote, setVote] = useState(null);
     const {postId} = useParams();
 
     const { loggedinUser, userId } = useContext(UserContext);
@@ -24,6 +25,18 @@ const Post = () => {
             const records = await pb.collection('post_likes').getFullList({
                 filter: `postId = "${postId}"`,
             });
+            const existingRecords = await pb.collection('likes').getFullList({
+                filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
+            });
+            console.log(vote);
+            if (existingRecords.length > 0) {
+                // User has already reacted with the same type, delete the reaction
+                setVote(existingRecords[0].like);
+                console.log(vote);
+            }else{
+                
+                setVote(null);
+            }
 
             if(records.length!== 0){
                 setNetLikes(records[0].netLikes);
@@ -44,12 +57,27 @@ const Post = () => {
                 const existingRecords = await pb.collection('likes').getFullList({
                     filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
                 });
-            
+                
                 if (existingRecords.length > 0) {
-                    // User has already reacted with the same type, delete the reaction
-                    const recordId = existingRecords[0].id;
-                    await pb.collection('likes').delete(recordId);
-                    fetchLikes(); // Refresh the likes count after updating
+                    if(likeValue === existingRecords[0].like){
+
+                        // User has already reacted with the same type, delete the reaction
+                        // setVote(existingRecords[0].like);
+                        console.log('ididi')
+                        const recordId = existingRecords[0].id;
+                        await pb.collection('likes').delete(recordId);
+                        fetchLikes(); // Refresh the likes count after updating
+                    }else if(likeValue !== existingRecords[0].like){
+                        const recordId = existingRecords[0].id;
+                        await pb.collection('likes').delete(recordId);
+
+                        await pb.collection('likes').create({
+                            "like": likeValue,
+                            "userId": userId,
+                            "postId": postId,
+                        });
+                        fetchLikes(); // Refresh the likes count after updating
+                    }
                 } else {
                     // Create a new reaction
                     await pb.collection('likes').create({
@@ -119,14 +147,14 @@ const Post = () => {
                             <img 
                                 src={Arrow}  
                                 alt='arrow' 
-                                className='w-[35px] h-[35px] rotate-[270deg] p-2 hover:rounded-full hover:bg-blue-600/40 cursor-pointer' 
+                                className={`w-[35px] h-[35px] rotate-[270deg] p-2 hover:rounded-full hover:bg-blue-600/40 cursor-pointer ${vote === 1 && 'bg-blue-600 rounded-full'}`}
                                 onClick={() => handleReaction(1)}
                             />
                             <span className='text-xs'>{netLikes}</span>
                             <img 
                                 src={Arrow}  
                                 alt='arrow' 
-                                className='w-[35px] h-[35px] p-2 rotate-[90deg] hover:rounded-full hover:bg-red-600/40 cursor-pointer' 
+                                className={`w-[35px] h-[35px] p-2 rotate-[90deg] hover:rounded-full hover:bg-red-600/40 cursor-pointer ${vote === -1 && 'bg-red-600 rounded-full'}`}
                                 onClick={() => handleReaction(-1)}
                             />
                         </div>
