@@ -6,15 +6,14 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [loggedinUser, setLoggedinUser] = useState('');
-  const [userId, setUserid] = useState('');
+  const [ userId, setUserId ] = useState('');
 
   const updateLoggedinUser = () => {
     if (pb.authStore.model) {
       setLoggedinUser(pb.authStore.model.username);
-      setUserid(pb.authStore.model.id)
+      setUserId(pb.authStore.model.id);
     } else {
-      setLoggedinUser('');
-      setUserid('');
+      setLoggedinUser({});
     }
   };
 
@@ -23,7 +22,7 @@ export const UserProvider = ({ children }) => {
   },[])
 
   return (
-    <UserContext.Provider value={{ loggedinUser,userId, setLoggedinUser }}>
+    <UserContext.Provider value={{ loggedinUser, userId, setLoggedinUser }}>
       {children}
     </UserContext.Provider>
   );

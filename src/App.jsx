@@ -84,16 +84,16 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen w-[calc(100vw_-_6px)] flex bg-[#fafbfb] text-black pb-[10vh]">
+      <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row bg-[#fafbfb] text-black pb-[10vh]">
         {/* <h1 className="font-bold text-3xl pt-10">AMUStudy</h1> */}
 
         {/* <Form refresh={postsList}/> */}
-        <div className="flex flex-col items-start mx-10 w-[60%] mt-[15vh] rounded-md shadow ">
+        <div className="flex flex-col items-start mx-10 w-[90%] sm:w-[60%] mt-[15vh] rounded-md shadow ">
           <h1 className="text-[1.7rem] font-bold px-5 pt-[5vh]">Recent Posts</h1>
           {posts.map((post, index) => (
-            <div 
-            key={index} 
-            className="w-[60vw] flex items-center py-5 pl-2 my-2 hover:rounded-lg hover:bg-gray-100"
+            <div
+              key={index}
+              className="w-[60vw] flex items-center py-5 pl-2 my-2 hover:rounded-lg hover:bg-gray-100"
             >   
               <div className="flex flex-col items-center gap-2 px-5">
                 <img src={Chevron} className="w-[40px] rotate-[90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"/>

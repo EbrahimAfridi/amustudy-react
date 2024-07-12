@@ -10,7 +10,7 @@ const Form = ({refresh}) => {
   const [photoURL, setPhotoURL] = useState(null);
   const [ loading, setLoading ] = useState(false);
 
-  const { loggedinUser } = useContext(UserContext);
+  const { loggedinUser, userId } = useContext(UserContext);
 
   useEffect(() => {
     if (photo) {
@@ -40,7 +40,7 @@ const Form = ({refresh}) => {
   
   const handlePost = async () => {
     
-    formData.append('username', loggedinUser);
+    formData.append('user', userId);
     formData.append('title', title);
     formData.append('text', inputText);
     if (photo) {
@@ -114,7 +114,7 @@ const Form = ({refresh}) => {
         </label>
         <button
           onClick={handlePost}
-          className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          className={`px-4 py-2 bg-blue-500 text-white rounded-lg  ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-blue-600'}`}
         >
           {loading ? "Uploading.." : "Post"}
         </button>
