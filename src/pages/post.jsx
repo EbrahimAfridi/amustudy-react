@@ -104,6 +104,8 @@ const Post = () => {
                 
             } catch (error) {
                 console.log(error);
+                // Revert optimistic update if error occurs
+                fetchLikes();
             }
         }else{
             alert('You need to login to vote on the post.')

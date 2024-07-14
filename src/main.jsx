@@ -4,6 +4,7 @@ import App from './App.jsx';
 import Post from "./pages/Post.jsx";
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
+import NewForm from './components/NewForm.jsx';
 import { UserProvider } from "./utils/UserContext.jsx";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import './index.css'
@@ -32,6 +33,10 @@ const appRouter = createBrowserRouter([
       {
         path:"/signup",
         element: <Signup />
+      },
+      {
+        path:"/new",
+        element:<NewForm />
       }
     ]
   }

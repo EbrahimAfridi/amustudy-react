@@ -6,45 +6,49 @@ import { formatDistanceToNow } from "date-fns";
 import Chevron from "../public/chevron.png";
 import { useNavigate } from 'react-router-dom';
 import UserContext from "./utils/UserContext";
+import NewForm from "./components/NewForm";
 
 export default function Home() {
   const [posts, setPosts] = useState([]); 
-
+  const[showForm, setShowForm] = useState(false);
+  const[tags, setTags] = useState([]);
   const navigate = useNavigate();
 
   const { loggedinUser, userId} = useContext(UserContext);
 
+  const handleShowForm = () => {
+    setShowForm(!showForm);
+  }
 
   const fetchLikes = async (postId) => {
       try{
-          const records = await pb.collection('likes').getFullList({
-              filter: `postId = "${postId}"`,
-          });
-          console.log(records);
-          let totalLikes = 0;
-          let totalDislikes = 0;
-
-          records.forEach(record => {
-            if (record.like) {  
-              totalLikes += record.like;
-            }
-            if (record.dislike) {
-              totalDislikes += record.dislike;
-            }
+          
+          const records = await pb.collection('post_likes').getFullList({
+            filter: `postId = "${postId}"`,
           });
 
-          const netLikes = totalLikes - totalDislikes;
-          return netLikes;
+          if(records.length!== 0){
+            return records[0].netLikes;
+          }else{
+              return 0;
+          }
+          
       }catch(error){
           console.log(error);
       }
   }
 
   const handleReaction = async (postId,likeValue) => {
-    console.log(postId);
+    
     if(loggedinUser.username !== ''){
 
         try {
+            // Optimistically update local state
+            const updatedPosts = posts.map(post =>
+              post.id === postId ? { ...post, netLikes: post.netLikes + likeValue } : post
+            );
+            setPosts(updatedPosts);
+
             // Check if the user has already reacted with the same type
             const existingRecords = await pb.collection('likes').getFullList({
                 filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
@@ -64,14 +68,19 @@ export default function Home() {
                 });
                 
             }
-            // Refresh the likes count for the post; this will only update the likes of that specific post
+            // Refresh the likes count for the post
             const netLikes = await fetchLikes(postId);
-            const updatedPosts = posts.map(post =>
+            const finalUpdatedPosts = posts.map(post =>
               post.id === postId ? { ...post, netLikes } : post
             );
-            setPosts(updatedPosts);
+            setPosts(finalUpdatedPosts);
         } catch (error) {
             console.log(error);
+            // Revert optimistic UI update on error
+            const revertedPosts = posts.map(post =>
+              post.id === postId ? { ...post, netLikes: post.netLikes - likeValue } : post
+            );
+            setPosts(revertedPosts);
         }
     }else{
         alert('You need to login to vote on the post.')
@@ -104,7 +113,7 @@ export default function Home() {
         }
         updatedPosts.push(post); // Push updated post to the array
       }
-      console.log(updatedPosts);
+      
       // Update state with the array of updated posts
       setPosts(updatedPosts);
 
@@ -113,10 +122,21 @@ export default function Home() {
     }
   };
   
+  const tagsList = async () => {
+    try{
+      const records = await pb.collection('tags').getFullList({
+          sort: '-created',
+      });
+      setTags(records);
+    }catch(error){
+      console.log("Tags Error: ",error);
+    }
+  }
 
  
   useEffect(()=>{
     postsList();
+    tagsList();
   },[])
   
   const handlePostClick = (id) => {
@@ -126,6 +146,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      {showForm && <NewForm refresh={postsList} setShowForm={setShowForm} tagsList={tags}/>}
       <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row bg-[#fafbfb] text-black pb-[10vh]">
         {/* <h1 className="font-bold text-3xl pt-10">AMUStudy</h1> */}
 
@@ -164,28 +185,25 @@ export default function Home() {
             </div>
             ))}
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center gap-10">
           
-          <Form refresh={postsList}/>
+          {/* <Form refresh={postsList}/> */}
           
           <div className="flex flex-col items-start  h-[30vh] mr-5 mt-[15vh] rounded-md shadow px-5">
               <h1 className="text-[1.7rem] font-bold pt-[5vh] mb-5">Top Tags</h1>
-              <div className="flex justify-between flex-wrap gap-5">
-                <div>
-                  <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium"> javascript</span>
-                  <span className="text-sm pl-2">999</span>
-                </div>
-                <div>
-                  <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium"> python</span>
-                  <span className="text-sm pl-2">999</span>
-                </div>
-                <div>
-                  <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium"> typescript</span>
-                  <span className="text-sm pl-2">999</span>
-                </div>
-              
+              <div className="flex flex-wrap">
+                {tags.map((tag, index) => (
+                  <div key={index} className="flex items-center justify-between w-full sm:w-1/3 px-2 mb-4">
+                    <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium">{tag.label}</span>
+                    <span className="text-sm pl-0">{tag.count}</span>
+                  </div>
+                ))}
               </div>
+
           </div>
+          <button className="text-white w-[50%]" onClick={handleShowForm}>
+            Ask a Question
+          </button>
         </div>
       </main>
     </>
