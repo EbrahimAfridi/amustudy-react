@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom/client'
 // import {Provider} from "react-redux";
 import App from './App.jsx';
-import Post from "./pages/Post.jsx";
-import Login from './pages/Login.jsx';
-import Signup from './pages/Signup.jsx';
-import NewForm from './components/NewForm.jsx';
-import { UserProvider } from "./utils/UserContext.jsx";
+import Post from './pages/Post';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import NewForm from './components/NewForm';
+import { UserProvider } from "./utils/UserContext";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import './index.css'
 

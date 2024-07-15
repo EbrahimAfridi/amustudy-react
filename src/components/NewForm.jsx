@@ -51,32 +51,32 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
-  const incrementTagCounter = async (tag) => {
-    try {
-      // Check if the tag exists in the collection
-      const existingTag = await pb.collection('tags').getFullList({
-        filter: `label = "${tag.label}"`,
-      });
+  // const incrementTagCounter = async (tag) => {
+  //   try {
+  //     // Check if the tag exists in the collection
+  //     const existingTag = await pb.collection('tags').getFullList({
+  //       filter: `label = "${tag.label}"`,
+  //     });
 
-      if (existingTag.length > 0) {
-        // If the tag exists, increment its counter
-        const tagId = existingTag[0].id;
-        await pb.collection('tags').update(tagId, {
-          label: existingTag[0].label,
-          admin_tag: false,
-          count: existingTag[0].count + 1,
-        });
-      } else {
-        // If the tag doesn't exist, create a new tag with count 1
-        await pb.collection('tags').create({
-          label: tag.label,
-          count: 1,
-        });
-      }
-    } catch (error) {
-      console.error(`Error updating tag counter for ${tag.label}:`, error);
-    }
-  };
+  //     if (existingTag.length > 0) {
+  //       // If the tag exists, increment its counter
+  //       const tagId = existingTag[0].id;
+  //       await pb.collection('tags').update(tagId, {
+  //         label: existingTag[0].label,
+  //         admin_tag: false,
+  //         count: existingTag[0].count + 1,
+  //       });
+  //     } else {
+  //       // If the tag doesn't exist, create a new tag with count 1
+  //       await pb.collection('tags').create({
+  //         label: tag.label,
+  //         count: 1,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error(`Error updating tag counter for ${tag.label}:`, error);
+  //   }
+  // };
 
   const formData = new FormData();
 
@@ -84,7 +84,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
     formData.append('user', userId);
     formData.append('title', title);
     formData.append('text', inputText);
-    formData.append('tags', ["6ghqimlfq5eglew"]); // Include tags in formData
+    formData.append('tags', ); // Include tags in formData
     if (photo) {
       formData.append('image', photo);
     }
@@ -93,9 +93,9 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
       try {
         await pb.collection('posts').create(formData);
         // Increment counters for each tag used
-        for (const tag of tags) {
-          await incrementTagCounter(tag);
-        }
+        // for (const tag of tags) {
+        //   await incrementTagCounter(tag);
+        // }
         // Clear the form after successful post
         setTitle('');
         setInputText('');
