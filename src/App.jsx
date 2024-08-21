@@ -158,7 +158,7 @@ export default function Home() {
         {/* <h1 className="font-bold text-3xl pt-10">AMUStudy</h1> */}
 
         {/* <Form refresh={postsList}/> */}
-        <div className="flex flex-col gap-5 items-start mx-10 w-[90%] sm:w-[60%] mt-[15vh] rounded-md shadow ">
+        <div className="flex flex-col gap-5 items-start mx-10 w-[90%] sm:w-[60%] mt-[15vh] rounded-md ">
           <h1 className="text-[1.7rem] font-bold pt-[5vh]">Recent Posts</h1>
 
           <div className="flex flex-wrap gap-5">
@@ -232,7 +232,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-10">
           {/* <Form refresh={postsList}/> */}
 
-          <div className="flex flex-col items-start  sm:h-[30vh] mr-5 mt-[15vh] rounded-md shadow px-5">
+          <div className="flex flex-col items-start  sm:h-[30vh] mr-5 mt-[15vh] rounded-md border-[1px] border-[#1c1f26] px-5">
             <h1 className="text-[1.7rem] font-bold pt-[5vh] mb-5">Top Tags</h1>
             <div className="flex flex-wrap">
               {tags.map((tag, index) => (
@@ -240,7 +240,7 @@ export default function Home() {
                   key={index}
                   className="flex items-center justify-between w-full sm:w-1/3 px-2 mb-4"
                 >
-                  <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 rounded-full text-sm font-medium">
                     {tag.label}
                   </span>
                   <span className="text-sm pl-0">{tag.count}</span>

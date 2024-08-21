@@ -114,12 +114,12 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
   };
 
   return (
-    <div className="flex justify-center items-center fixed w-screen h-screen bg-black/5" onClick={() => setShowForm(false)}>
-      <div id="form" className='w-[30vw] bg-[#fafbfb] text-black font-medium shadow rounded-md' onClick={(e) => e.stopPropagation()}>
+    <div className="flex justify-center items-center fixed w-screen h-screen bg-black/30 z-10" onClick={() => setShowForm(false)}>
+      <div id="form" className='w-[70vw] md:w-[30vw] bg-[#1c1f26] p-3 text-white font-medium shadow rounded-md' onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col items-center justify-start mb-4">
           <input
             type="text"
-            className='w-full p-2 bg-[#fafbfb] focus:outline-none rounded-t-md'
+            className='w-full p-2 bg-[#1c1f26] focus:outline-none rounded-t-md'
             placeholder="Title"
             value={title}
             rows='2'
@@ -127,14 +127,14 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
           />
           <textarea
             type="text"
-            className='w-full resize-y ml-0 p-2 bg-[#fafbfb] focus:outline-none'
+            className='w-full resize-y ml-0 p-2 bg-[#1c1f26] focus:outline-none'
             placeholder="Start a post"
             value={inputText}
             rows='6'
             onChange={handleTextChange}
           />
           <select
-            className="w-full p-2 bg-[#fafbfb] focus:outline-none mt-2"
+            className="w-full p-2 bg-[#1c1f26] focus:outline-none mt-2"
             onChange={handleTagChange}
           >
             <option value="">Select a tag</option>
@@ -170,7 +170,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
           </div>
         )}
         <div className="flex justify-between px-2 pb-2">
-          <label className='flex items-center'>
+          <label className='flex items-center cursor-pointer'>
             <input
               type="file"
               className="hidden"
