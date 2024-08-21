@@ -16,7 +16,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const { loggedinUser, userId } = useContext(UserContext);
-  console.log(loggedinUser);
+  // console.log(loggedinUser);
   const handleShowForm = () => {
     setShowForm(!showForm);
   };
@@ -248,7 +248,11 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <button className="text-white w-[50%]" onClick={handleShowForm}>
+          <button className={`text-white w-[50%] ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
+            if (loggedinUser.username !== ""){
+              handleShowForm();
+            }
+            }}>
             Ask a Question
           </button>
         </div>

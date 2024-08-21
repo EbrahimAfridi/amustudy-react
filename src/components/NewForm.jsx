@@ -102,6 +102,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
         setTags([]);
         setPhoto(null);
         setPhotoURL(null);
+        setShowForm(false);
       } catch (error) {
         console.error("Error creating post:", error);
       } finally {
@@ -160,7 +161,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
         </div>
         {photoURL && (
           <div className="mb-4">
-            <img src={photoURL} alt="Selected" className="w-full h-auto " />
+            <img src={photoURL} alt="Selected" className="w-fit h-[25vh]" />
             <span
               className="text-red-600 text-md hover:text-red-700 cursor-pointer"
               onClick={handleDelete}
