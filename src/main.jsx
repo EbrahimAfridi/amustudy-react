@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 // import {Provider} from "react-redux";
 import App from './App.jsx';
-// import Post from './pages/Post.jsx';
+import Post from './pages/post.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import NewForm from './components/NewForm.jsx';
@@ -22,10 +22,10 @@ const appRouter = createBrowserRouter([
         index: true,
         element: <App />
       },
-      // {
-      //   path: "/post/:postId",
-      //   element: <Post />
-      // },
+      {
+        path: "/post/:postId",
+        element: <Post />
+      },
       {
         path: "/login",
         element: <Login />
