@@ -7,6 +7,7 @@ import Chevron from "../public/chevron.png";
 import { useNavigate } from 'react-router-dom';
 import UserContext from "./utils/UserContext";
 import NewForm from "./components/NewForm";
+import image from '../public/159886.jpg';
 
 export default function Home() {
   const [posts, setPosts] = useState([]); 
@@ -147,43 +148,62 @@ export default function Home() {
     <>
       <Navbar />
       {showForm && <NewForm refresh={postsList} setShowForm={setShowForm} tagsList={tags}/>}
-      <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row sm:items-start items-center bg-[#fafbfb] text-black pb-[10vh]">
+      <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row sm:items-start items-center bg-[#0e1116]  pb-[10vh]">
         {/* <h1 className="font-bold text-3xl pt-10">AMUStudy</h1> */}
 
         {/* <Form refresh={postsList}/> */}
-        <div className="flex flex-col items-start mx-10 w-[90%] sm:w-[60%] mt-[15vh] rounded-md shadow ">
-          <h1 className="text-[1.7rem] font-bold px-5 pt-[5vh]">Recent Posts</h1>
-          {posts.map((post, index) => (
-            <div
+        <div className="flex flex-col gap-5 items-start mx-10 w-[90%] sm:w-[60%] mt-[15vh] rounded-md shadow ">
+          <h1 className="text-[1.7rem] font-bold pt-[5vh]">Recent Posts</h1>
+          
+          <div className="flex flex-wrap gap-5">
+            {posts.map((post, index) => (
+              <div
               key={index}
-              className="w-[100%] flex items-center py-5 pl-2 my-2 hover:rounded-lg hover:bg-gray-100"
-            >   
-              <div className="flex flex-col items-center gap-2 px-5">
-                <img 
+              className="md:w-[23vw] flex items-center py-5 px-2 my-2 bg-[#1c1f26] rounded-2xl border-[1px] border-transparent hover:border-white/20 "
+              >   
+                {/* <div className="flex flex-col items-center gap-2 px-5">
+                  <img 
                   src={Chevron} 
                   className="w-[40px] rotate-[90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
                   onClick={() => handleReaction(post.id,1)}
-                />
+                  />
 
-                <span>{post.netLikes}</span>
-                <img 
+                  <span>{post.netLikes}</span>
+                  <img 
                   src={Chevron} 
                   className="w-[40px] rotate-[-90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
                   onClick={() => handleReaction(post.id,-1)} 
-                />
+                  />
+                  </div> */}
+                <div 
+                  onClick={() => handlePostClick(post.id)}
+                  className="w-[100%] flex flex-col gap-3 cursor-pointer"
+                  >
+                  <h3 className="font-semibold text-2xl text-left px-2 cursor-pointer">{post.title}</h3>
+                  {post.tags.length !== 0 && <span className="w-fit border-[1px] border-[#6a7180] text-[#6a7180] px-3 py-1 rounded-lg text-xs font-medium "> #{post.expand?.tags[0]?.label}</span>}
+                  <p className="text-[#6a7180] mb-4 px-2 text-sm font-medium">{formatDistanceToNow(new Date(post.created))} ago • <span className="font-medium">{post?.expand?.user?.username}</span></p>
+                  {/* <p className="mb-4 text-left px-2">{post.text.slice(0, 300)}</p> */}
+                  {/* {post.image !== '' && <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className="w-[400px] h-auto rounded-lg" />} */}
+                  <img src={image} className="rounded-xl mt-5"/>
+
+                  <div className="flex items-center gap-2 bg-[#282b35] text-[#6a7180] font-bold w-fit rounded-xl">
+                  <img 
+                  src={Chevron} 
+                  className="w-[40px] rotate-[90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
+                  onClick={() => handleReaction(post.id,1)}
+                  />
+
+                  <span>{post.netLikes}</span>
+                  <img 
+                  src={Chevron} 
+                  className="w-[40px] rotate-[-90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
+                  onClick={() => handleReaction(post.id,-1)} 
+                  />
+                  </div>
+                </div>
               </div>
-              <div 
-                onClick={() => handlePostClick(post.id)}
-                className="w-[100%] cursor-pointer"
-              >
-                <p className="font-medium text-xl text-left px-2 cursor-pointer">{post.title}</p>
-                <p className="text-[#a4a5aa] mb-4 px-2 text-sm">Asked {formatDistanceToNow(new Date(post.created))} ago by <span className="font-medium">{post?.expand?.user?.username}</span></p>
-                {post.tags.length !== 0 && <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium"> {post.expand?.tags[0]?.label}</span>}
-                {/* <p className="mb-4 text-left px-2">{post.text.slice(0, 300)}</p> */}
-                {/* {post.image !== '' && <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className="w-[400px] h-auto rounded-lg" />} */}
-              </div>
-            </div>
-            ))}
+              ))}
+          </div>
         </div>
         <div className="flex flex-col items-center gap-10">
           

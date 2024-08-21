@@ -22,7 +22,7 @@ const Navbar = () => {
 
     }
     return(
-        <div className="h-[10vh] w-[100%] flex justify-between items-center bg-[#18181b] fixed px-10 font-medium">
+        <div className="h-[10vh] w-[100%] flex justify-between items-center bg-[#0e1116] border-b-[1px] border-[#1c1f26] fixed px-10 font-medium">
             <h1 className="text-[1.2rem] font-bold text-white">
                 AMUStudy
             </h1>
