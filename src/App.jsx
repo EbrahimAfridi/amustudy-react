@@ -1,4 +1,4 @@
-import Form from "./components/Form";
+// import Form from "./components/Form";
 import { useState, useEffect, useContext } from "react";
 import pb from "../lib/pocketbase";
 import Navbar from "./components/Navbar";
@@ -15,7 +15,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const { loggedinUser, userId} = useContext(UserContext);
-
+  console.log(loggedinUser);
   const handleShowForm = () => {
     setShowForm(!showForm);
   }
@@ -93,7 +93,7 @@ export default function Home() {
       const resultList = await pb.collection('posts').getList(1, 10, {
         filter: 'created >= "2022-01-01 00:00:00"',
         sort: '-created',
-        expand: "user",
+        expand: "user, tags",
       }, { requestKey: null });
 
       // Update posts state with fetched data
@@ -147,7 +147,7 @@ export default function Home() {
     <>
       <Navbar />
       {showForm && <NewForm refresh={postsList} setShowForm={setShowForm} tagsList={tags}/>}
-      <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row bg-[#fafbfb] text-black pb-[10vh]">
+      <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row sm:items-start items-center bg-[#fafbfb] text-black pb-[10vh]">
         {/* <h1 className="font-bold text-3xl pt-10">AMUStudy</h1> */}
 
         {/* <Form refresh={postsList}/> */}
@@ -178,7 +178,7 @@ export default function Home() {
               >
                 <p className="font-medium text-xl text-left px-2 cursor-pointer">{post.title}</p>
                 <p className="text-[#a4a5aa] mb-4 px-2 text-sm">Asked {formatDistanceToNow(new Date(post.created))} ago by <span className="font-medium">{post?.expand?.user?.username}</span></p>
-                <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium"> javascript</span>
+                {post.tags.length !== 0 && <span className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium"> {post.expand?.tags[0]?.label}</span>}
                 {/* <p className="mb-4 text-left px-2">{post.text.slice(0, 300)}</p> */}
                 {/* {post.image !== '' && <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className="w-[400px] h-auto rounded-lg" />} */}
               </div>
@@ -189,7 +189,7 @@ export default function Home() {
           
           {/* <Form refresh={postsList}/> */}
           
-          <div className="flex flex-col items-start  h-[30vh] mr-5 mt-[15vh] rounded-md shadow px-5">
+          <div className="flex flex-col items-start  sm:h-[30vh] mr-5 mt-[15vh] rounded-md shadow px-5">
               <h1 className="text-[1.7rem] font-bold pt-[5vh] mb-5">Top Tags</h1>
               <div className="flex flex-wrap">
                 {tags.map((tag, index) => (

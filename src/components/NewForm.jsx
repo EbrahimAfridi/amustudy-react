@@ -12,7 +12,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
 
   const { loggedinUser, userId } = useContext(UserContext);
 
-  const newTagsList = tagsList.map((item) => item.label);
+  const allTags = tagsList?.map((item) => item.label);
 
   useEffect(() => {
     if (photo) {
@@ -84,7 +84,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
     formData.append('user', userId);
     formData.append('title', title);
     formData.append('text', inputText);
-    formData.append('tags', ); // Include tags in formData
+    formData.append('tags', ['6ghqimlfq5eglew']); // Include tags in formData
     if (photo) {
       formData.append('image', photo);
     }
@@ -138,7 +138,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
             onChange={handleTagChange}
           >
             <option value="">Select a tag</option>
-            {newTagsList.map((tag, index) => (
+            {allTags.map((tag, index) => (
               <option key={index} value={tag}>
                 {tag}
               </option>
