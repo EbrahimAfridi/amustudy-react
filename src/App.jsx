@@ -155,14 +155,14 @@ export default function Home() {
           tagsList={tags}
         />
       )}
-      <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row sm:items-start items-center bg-[#0e1116]  pb-[10vh]">
+      <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row sm:items-start items-center bg-[#0e1116] text-white pb-[10vh]">
         {/* <h1 className="font-bold text-3xl pt-10">AMUStudy</h1> */}
 
         {/* <Form refresh={postsList}/> */}
         <div className="flex flex-col gap-5 items-start mx-10 w-[90%] sm:w-[60%] mt-[15vh] rounded-md ">
           <div className="flex justify-between items-center w-full pt-[5vh]">
             <h1 className="text-[1.7rem] font-bold">Recent Posts</h1>
-            <button className={`text-black bg-white h-fit ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
+            <button className={`bg-white h-fit ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
               if (loggedinUser.username !== ""){
                 handleShowForm();
               }
