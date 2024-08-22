@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import pb from '../../lib/pocketbase';
 import { formatDistanceToNow } from "date-fns";
 import Navbar from '../components/Navbar';
-import Arrow from "../../public/arrow-black.png";
-import Comment from "../../public/comment.png";
-import Share from "../../public/share.png";
-import User from "../../public/user.png";
+import Arrow from "../../public/arrow-white.png";
+import Comment from "../../public/comment-white.png";
+import Copy from "../../public/copy.png";
+import User from "../../public/profile.png";
 import { useParams } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import { useContext } from "react";
@@ -135,38 +135,51 @@ const Post = () => {
         postView();
         fetchLikes();
     },[postId])
+
+    const handleCopy = () => {
+        const url = window.location.href;
+
+        // Use the Clipboard API to copy the URL to the clipboard
+        navigator.clipboard.writeText(url)
+            .then(() => {
+                alert('URL copied to clipboard!');
+            })
+            .catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+    };
     
     return(
         <>
         <Navbar />
-        <div className='flex bg-[#fafbfb] min-h-screen  min-w-[calc(100vw_-_6px)] justify-center text-black pt-[15vh] pb-[10vh]'>
-            <div className='w-[60vw] h-fit flex flex-col gap-5 shadow rounded-md p-5'>
-                <div className="flex gap-5 items-center text-gray-600 mb-4">
+        <div className='flex bg-[#1c1f26] min-h-screen  min-w-[calc(100vw_-_6px)] justify-center text-white pt-[10vh] md:pt-[15vh] md:pb-[10vh]'>
+            <div className='w-[100%] md:w-[60vw] h-fit flex flex-col gap-5 border-[1px] border-white/20 md:rounded-3xl p-5 bg-[#0e1116] '>
+                <div className="flex gap-5 items-center  mb-4">
                     <div className='flex items-center justify-center h-[40px] w-[40px] border-[1px] border-gray-500 rounded-full'>
                         <img src={User} className='w-[30px]'/>
                     </div>
                     <div className='flex flex-col'>
-                        <span className="font-medium text-black">{username}</span>
-                        <p className="text-gray-500 text-sm">
+                        <span className="font-medium">{username}</span>
+                        <p className=" text-sm">
                             {post.updated ? formatDistanceToNow(new Date(post.updated)) + ' ago' : 'N/A'}
                         </p>
                     </div>
                 </div>
-                <h1 className='font-semibold text-[1.7rem]'>
+                <h1 className='font-semibold text-[2.2rem]'>
                     {post.title}
                 </h1>
                 {post.image !== '' && <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className="w-[400px] h-auto rounded-lg" />}
                 <div className='py-5 text-sm' dangerouslySetInnerHTML={{__html: post.text}}></div>
-                <div className='flex justify-between w-[100%]'>
+                <div className='flex justify-between w-[100%] font-bold'>
                     <div className='flex gap-5'>
-                        <div className='flex items-center gap-2  bg-[#fafbfb] shadow rounded-full mb-10'>
+                        <div className='flex items-center gap-2  bg-[#282b35] rounded-2xl mb-10'>
                             <img 
                                 src={Arrow}  
                                 alt='arrow' 
                                 className={`w-[35px] h-[35px] rotate-[270deg] p-2 hover:rounded-full hover:bg-blue-600/40 cursor-pointer ${vote === 1 && 'bg-blue-600 rounded-full'}`}
                                 onClick={() => handleReaction(1)}
                             />
-                            <span className='text-xs'>{netLikes}</span>
+                            <span className='text-sm'>{netLikes}</span>
                             <img 
                                 src={Arrow}  
                                 alt='arrow' 
@@ -174,14 +187,14 @@ const Post = () => {
                                 onClick={() => handleReaction(-1)}
                             />
                         </div>
-                        <div className='flex items-center gap-2 px-3 bg-[#fafbfb] shadow rounded-full mb-10 hover:bg-gray-600/40 cursor-pointer'>
+                        <div className='flex items-center gap-2 px-3 bg-[#282b35] rounded-2xl mb-10 hover:bg-gray-600/40 cursor-pointer'>
                             <img src={Comment} alt='arrow' className='w-[20px] h-[20px] '/>
-                            <span className='text-xs'>123</span>
+                            <span className='text-sm'>123</span>
                         </div>
                     </div>
-                    <div className='flex items-center gap-2 p-3 bg-[#fafbfb] shadow rounded-full mb-10  hover:bg-gray-600/40 cursor-pointer'>
-                        <img src={Share} alt='arrow' className='w-[20px] h-[20px]  '/>
-                        <span className='text-xs'>Share</span>
+                    <div onClick={handleCopy} className='flex items-center gap-2 p-3 bg-[#282b35] rounded-2xl mb-10  hover:text-purple-500 transition-all cursor-pointer'>
+                        <img src={Copy} alt='arrow' className='w-[20px] h-[20px] '/>
+                        <span className='text-sm'>Copy</span>
 
                     </div>
                 </div>

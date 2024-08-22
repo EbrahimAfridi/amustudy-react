@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useCreateUser from '../utils/useCreateUser';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import Dashboard from './Dashboard';
 
 const Signup = () => {
@@ -9,6 +10,8 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const {createUser, userName} = useCreateUser();
+  const navigate = useNavigate();
+
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -27,13 +30,13 @@ const Signup = () => {
     
   };
 
-  return ( userName != null ? (
-    
-    // <Dashboard />
-    <h1>Hello</h1>
-  ) : (
-    
-      
+  useEffect(()=>{
+    if (userName != null){
+      navigate('/')
+    }
+  }, [])
+  
+  return (   
     <div className='flex h-screen w-screen justify-center items-center bg-[#fafbfb] text-white'>
       
       <div className='flex flex-col justify-center items-center bg-[#18181b] px-5 py-10 rounded-md'>
@@ -79,7 +82,6 @@ const Signup = () => {
 
       {/* {userName !== null && !isVerified && (<Verify  isVerified={isVerified} requestVerification={requestVerification} checkVerified={checkVerified} />)} */}
     </div>
- ) 
   );
 };
 

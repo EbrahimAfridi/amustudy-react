@@ -30,7 +30,7 @@ const Navbar = () => {
 
                 <input
                     type="text"
-                    className="styled-input w-[30vw] py-2 pl-3 bg-[#fafbfb] rounded-md focus:outline-none"
+                    className="sm:inline hidden styled-input w-[30vw] py-2 pl-3 bg-[#1c1f26]  rounded-md focus:outline-none"
                     placeholder="Search AMUStudy"
                     value={inputText}
                     onChange={handleTextChange}

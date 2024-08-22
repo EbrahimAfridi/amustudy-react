@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "./utils/UserContext";
 import NewForm from "./components/NewForm";
 import image from "../public/159886.jpg";
+import Plus from "../public/plus-black.png";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -159,8 +160,16 @@ export default function Home() {
 
         {/* <Form refresh={postsList}/> */}
         <div className="flex flex-col gap-5 items-start mx-10 w-[90%] sm:w-[60%] mt-[15vh] rounded-md ">
-          <h1 className="text-[1.7rem] font-bold pt-[5vh]">Recent Posts</h1>
-
+          <div className="flex justify-between items-center w-full pt-[5vh]">
+            <h1 className="text-[1.7rem] font-bold">Recent Posts</h1>
+            <button className={`text-black bg-white h-fit ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
+              if (loggedinUser.username !== ""){
+                handleShowForm();
+              }
+              }}>
+              <img src={Plus} />
+            </button>
+          </div>
           <div className="flex flex-wrap gap-5">
             {posts.map((post, index) => (
               <div
@@ -232,7 +241,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-10">
           {/* <Form refresh={postsList}/> */}
 
-          <div className="flex flex-col items-start  sm:h-[30vh] mr-5 mt-[15vh] rounded-md border-[1px] border-[#1c1f26] px-5">
+          <div className="flex flex-col items-start  sm:h-[30vh] mx-3 md:mr-5 mt-[15vh] rounded-md border-[1px] border-[#1c1f26] px-5">
             <h1 className="text-[1.7rem] font-bold pt-[5vh] mb-5">Top Tags</h1>
             <div className="flex flex-wrap">
               {tags.map((tag, index) => (
@@ -248,13 +257,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <button className={`text-white w-[50%] ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
-            if (loggedinUser.username !== ""){
-              handleShowForm();
-            }
-            }}>
-            Ask a Question
-          </button>
+          
         </div>
       </main>
     </>
