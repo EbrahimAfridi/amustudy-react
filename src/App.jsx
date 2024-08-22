@@ -176,20 +176,6 @@ export default function Home() {
                 key={index}
                 className="md:w-[23vw] flex items-center py-5 px-2 my-2 bg-[#1c1f26] rounded-2xl border-[1px] border-transparent hover:border-white/20 "
               >
-                {/* <div className="flex flex-col items-center gap-2 px-5">
-                  <img 
-                  src={Chevron} 
-                  className="w-[40px] rotate-[90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
-                  onClick={() => handleReaction(post.id,1)}
-                  />
-
-                  <span>{post.netLikes}</span>
-                  <img 
-                  src={Chevron} 
-                  className="w-[40px] rotate-[-90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
-                  onClick={() => handleReaction(post.id,-1)} 
-                  />
-                  </div> */}
                 <div
                   onClick={() => handlePostClick(post.id)}
                   className="w-[100%] flex flex-col gap-3 cursor-pointer"
@@ -213,11 +199,16 @@ export default function Home() {
                       </p>
                     </div>
                     {/* <p className="mb-4 text-left px-2">{post.text.slice(0, 300)}</p> */}
-                    {/* {post.image !== '' && <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className="w-[400px] h-auto rounded-lg" />} */}
-                    <img
-                      src={image}
-                      className="rounded-xl mt-5 md:w-fit w-[40%]"
-                    />
+                    {post.image !== '' ? (
+                      <div className="w-full h-[25vh] overflow-hidden flex items-center rounded-lg">
+                        <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className=" " />
+                      </div>
+                    ) : (
+                      <img
+                        src={image}
+                        className="rounded-xl mt-5 md:w-fit w-[40%]"
+                      />
+                    )}
                   </div>
                   <div className="flex items-center gap-2 bg-[#282b35] text-[#6a7180] font-bold w-fit rounded-xl">
                     <img
