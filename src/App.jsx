@@ -19,7 +19,7 @@ export default function Home() {
   const { loggedinUser, userId } = useContext(UserContext);
   // console.log(loggedinUser);
   const handleShowForm = () => {
-    setShowForm(!showForm);
+    setShowForm(true);
   };
 
   const fetchLikes = async (postId) => {
@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   const handleReaction = async (postId, likeValue) => {
-    if (loggedinUser.username !== "") {
+    if (loggedinUser !== "") {
       try {
         // Optimistically update local state
         const updatedPosts = posts.map((post) =>
@@ -163,7 +163,7 @@ export default function Home() {
           <div className="flex justify-between items-center w-full pt-[5vh]">
             <h1 className="text-[1.7rem] font-bold">Recent Posts</h1>
             <button className={`bg-white h-fit ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
-              if (loggedinUser.username !== ""){
+              if (loggedinUser !== ''){
                 handleShowForm();
               }
               }}>

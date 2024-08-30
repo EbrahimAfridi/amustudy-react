@@ -50,7 +50,7 @@ const Post = () => {
 
     
     const handleReaction = async (likeValue) => {
-        if(loggedinUser.username !== ''){
+        if(loggedinUser !== ''){
 
             try {
                 // Check if the user has already reacted with the same type

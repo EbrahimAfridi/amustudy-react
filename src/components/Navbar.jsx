@@ -14,12 +14,11 @@ const Navbar = () => {
         setInputText(e.target.value);
       };
 
-    const { loggedinUser, userId } = useContext(UserContext);
+    const { loggedinUser, userId, updateLoggedinUser } = useContext(UserContext);
       
     const handleLogout = () => {
         logout();
-        console.log("logout");
-
+        updateLoggedinUser();
     }
     return(
         <div className="h-[10vh] w-[100%] flex justify-between items-center bg-[#0e1116] border-b-[1px] border-[#1c1f26] fixed px-10 font-medium z-10">
