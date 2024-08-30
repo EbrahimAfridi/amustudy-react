@@ -19,11 +19,12 @@ const Signup = () => {
         try {
 
           await createUser(email,username,password,passwordConfirm);
-          navigate('/')
-
+          
         } catch (error) {
-            console.error('Signup error:', error.message);
+          console.error('Signup error:', error.message);
+          alert("Signup Error:", error.message);
         }
+        navigate('/')
     }
     else{
         alert("Password did not match")

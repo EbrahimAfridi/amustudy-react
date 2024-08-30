@@ -136,10 +136,11 @@ export default function Home() {
     }
   };
 
+  updateLoggedinUser();
+  
   useEffect(() => {
     postsList();
     tagsList();
-    updateLoggedinUser();
   }, []);
 
   const handlePostClick = (id) => {
