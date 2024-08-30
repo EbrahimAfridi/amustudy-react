@@ -50,7 +50,7 @@ const Signup = () => {
           />
           <input
             value={username}
-            onChange= {(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value.replace(/\s/g, ''))}
             required
             placeholder='Username'
             className='px-4 py-2 bg-transparent focus:outline-none'
