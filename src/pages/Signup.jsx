@@ -18,11 +18,12 @@ const Signup = () => {
     if(password === passwordConfirm){
         try {
 
-          createUser(email,username,password,passwordConfirm);
+          await createUser(email,username,password,passwordConfirm);
+          navigate('/')
 
         } catch (error) {
             console.error('Signup error:', error.message);
-          }
+        }
     }
     else{
         alert("Password did not match")
@@ -30,11 +31,6 @@ const Signup = () => {
     
   };
 
-  useEffect(()=>{
-    if (userName != null){
-      navigate('/')
-    }
-  }, [])
   
   return (   
     <div className='flex h-screen w-screen justify-center items-center bg-[#fafbfb] text-white'>

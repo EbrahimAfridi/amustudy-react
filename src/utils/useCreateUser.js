@@ -5,7 +5,7 @@ export default function useCreateUser(){
     const [userName, setUserName] = useState(null);
     
     
-    async function  createUser(email,username,password,passwordConfirm){
+    async function createUser(email,username,password,passwordConfirm){
         try{
             const data = {
                 "username": `${username}`,
@@ -18,7 +18,7 @@ export default function useCreateUser(){
             const record = await pb.collection('users').create(data);
             const authData = await pb.collection('users').authWithPassword(email, password);
             if (authData){
-                console.log(pb.authStore.model.username);
+                // console.log(pb.authStore.model.username);
                 setUserName(pb.authStore.model.username);
             }
             

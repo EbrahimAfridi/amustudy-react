@@ -16,7 +16,7 @@ export default function Home() {
   const [tags, setTags] = useState([]);
   const navigate = useNavigate();
 
-  const { loggedinUser, userId } = useContext(UserContext);
+  const { loggedinUser, userId, updateLoggedinUser } = useContext(UserContext);
   // console.log(loggedinUser);
   const handleShowForm = () => {
     setShowForm(true);
@@ -139,6 +139,7 @@ export default function Home() {
   useEffect(() => {
     postsList();
     tagsList();
+    updateLoggedinUser();
   }, []);
 
   const handlePostClick = (id) => {
