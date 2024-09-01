@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import pb from "../../lib/pocketbase";
 import UserContext from "../utils/UserContext";
 
-const NewForm = ({ refresh, setShowForm, tagsList }) => {
+const Create = () => {
   const [inputText, setInputText] = useState('');
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
@@ -11,8 +11,18 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
   const [loading, setLoading] = useState(false);
 
   const { loggedinUser, userId } = useContext(UserContext);
-
-  const allTags = tagsList?.map((item) => item.label);
+  let allTags;
+  const tagsList = async () => {
+    try {
+      const records = await pb.collection("tags").getFullList({
+        sort: "-created",
+      });
+      setTags(records);
+      allTags = tagsList?.map((item) => item.label);
+    } catch (error) {
+      console.log("Tags Error: ", error);
+    }
+  };
 
   useEffect(() => {
     if (photo) {
@@ -115,7 +125,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
         setTags([]);
         setPhoto(null);
         setPhotoURL(null);
-        setShowForm(false);
+
       } catch (error) {
         console.error("Error creating post:", error);
       } finally {
@@ -128,8 +138,8 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
   };
 
   return (
-    <div className="flex justify-center items-center fixed w-screen h-screen bg-black/30 z-10" onClick={() => setShowForm(false)}>
-      <div id="form" className='w-[70vw] md:w-[50vw] bg-[#1c1f26] p-3 text-white font-medium shadow rounded-md' onClick={(e) => e.stopPropagation()}>
+    // <div className="flex justify-center items-center w-screen h-screen bg-black/30 z-10">
+      <div id="form" className='w-full bg-[#1c1f26] p-3 text-white font-medium shadow rounded-md' onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col items-center justify-start gap-4 mb-4">
           <input
             type="text"
@@ -152,11 +162,11 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
             onChange={handleTagChange}
           >
             <option value="">Select a tag</option>
-            {allTags.map((tag, index) => (
+            {/* {allTags.map((tag, index) => (
               <option key={index} value={tag}>
                 {tag}
               </option>
-            ))}
+            ))} */}
           </select>
           <div className="flex flex-wrap gap-2 mt-2">
             {tags.map((tag, index) => (
@@ -205,8 +215,8 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
           </button>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 
-export default NewForm;
+export default Create;

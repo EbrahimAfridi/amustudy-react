@@ -4,7 +4,7 @@ import App from './App.jsx';
 import Post from './pages/post.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
-import NewForm from './components/NewForm.jsx';
+import Create from './pages/Create.jsx';
 import { UserProvider } from "./utils/UserContext";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import './index.css'
@@ -36,8 +36,8 @@ const appRouter = createBrowserRouter([
       },
       {
         path:"/new",
-        element:<NewForm />
-      }
+        element:<Create />
+      },
     ]
   }
 ])

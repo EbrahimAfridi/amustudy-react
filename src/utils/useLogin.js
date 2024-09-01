@@ -9,7 +9,6 @@ const useLogin = () => {
   const { setLoggedinUser } = useContext(UserContext);
   
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmail(e.nativeEvent.target[0].value);
@@ -25,12 +24,24 @@ const useLogin = () => {
       console.log(error);
     }
   
-
     
-
+    
     setEmail("");
     setPassword("");
   };
+  
+  const handleOauth = async ()=> {
+    try{
+      const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
+      if (authData){
+        setLogin(pb.authStore.isValid);
+        setLoggedinUser(pb.authStore.model.username);
+      }
+    }catch(error){
+      console.log(error);
+    }
+
+  }
 
   return {
     email,
@@ -40,6 +51,7 @@ const useLogin = () => {
     login,
     setLogin,
     handleSubmit,
+    handleOauth,
   };
 };
 

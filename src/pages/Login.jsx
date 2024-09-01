@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import useLogin from "../utils/useLogin";
 import { Link } from "react-router-dom";
-
+import Google from '../../public/google.png';
 
 
 
 const Auth = () => {
-    const { email, setEmail, password, setPassword, login, handleSubmit } = useLogin();
+    const { email, setEmail, password, setPassword, login, handleSubmit, handleOauth } = useLogin();
     const navigate = useNavigate();
 
+    
 
     if(login){
         navigate('/');
@@ -39,6 +40,11 @@ const Auth = () => {
 
                     <button type="submit" className='bg-green-500 w-[100%] py-2 mt-5 rounded-md text-white hover:border-transparent'>Login</button>
                 </form>
+                <p className='text-sm text-gray-400 '>Or login with</p>
+                <button onClick={handleOauth} className='cursor-pointer bg-white rounded-md w-full flex justify-center'>
+
+                <img src={Google}  className='w-[30px]' />
+                </button>
                 <p className='text-slate-500 mt-5'>New to AMUStudy?</p>
                 <Link to="/signup" className='text-slate-300'>Sign up</Link>
             </div>

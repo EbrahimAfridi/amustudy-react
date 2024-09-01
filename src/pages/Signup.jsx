@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import useCreateUser from '../utils/useCreateUser';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Google from '../../public/google.png';
 // import Dashboard from './Dashboard';
 
 const Signup = () => {
@@ -9,7 +10,7 @@ const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const {createUser, userName} = useCreateUser();
+  const {createUser, oauthSignup,userName} = useCreateUser();
   const navigate = useNavigate();
 
 
@@ -73,6 +74,13 @@ const Signup = () => {
           />
           <button type="submit" className='bg-green-500 w-[100%] py-2 rounded-md text-white'>Sign up</button>
         </form>
+
+        <p className='text-sm text-gray-400 mt-5'>Or sign up with</p>
+        <button onClick={oauthSignup} className='cursor-pointer bg-white rounded-md w-full mt-5 flex justify-center'>
+
+          <img src={Google}  className='w-[30px]' />
+        </button>
+        
         <p className='text-slate-500 mt-5'>Already have an account?</p>
         <Link to="/login" className='text-slate-300'> Login</Link>
       </div>

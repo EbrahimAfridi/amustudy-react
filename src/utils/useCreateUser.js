@@ -27,5 +27,18 @@ export default function useCreateUser(){
             console.log(error);
         }
     }
-    return {createUser, userName};
+
+    async function oauthSignup(){
+
+        try{
+            const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
+            if (authData){
+                // console.log(pb.authStore.model.username);
+                setUserName(pb.authStore.model.username);
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+    return {createUser,oauthSignup, userName};
 } 
