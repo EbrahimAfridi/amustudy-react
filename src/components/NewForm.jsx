@@ -83,17 +83,27 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
   const formData = new FormData();
 
   const handlePost = async () => {
-    formData.append('user', userId);
-    formData.append('title', title);
-    formData.append('text', inputText);
-    formData.append('tags', ['6ghqimlfq5eglew']); // Include tags in formData
-    if (photo) {
-      formData.append('image', photo);
-    }
+    // formData.append('user', userId);
+    // formData.append('title', title);
+    // formData.append('text', inputText);
+    const tagIds = tags.map(elem => elem.id);
+    // console.log(tagIds);
+    // const arraySome = ['rkdhb8hhd006e3c']
+    // formData.append('tags', arraySome);
+    // if (photo) {
+    //   formData.append('image', photo);
+    // }
     if (inputText !== '' && title !== '') {
       setLoading(true);
       try {
-        await pb.collection('posts').create(formData);
+        // await pb.collection('posts').create(formData);
+        await pb.collection('posts').create({
+          'user': userId,
+          'title': title,
+          'text': inputText,
+          'tags': tagIds,
+          'image': photo
+        });
         // Increment counters for each tag used
         // for (const tag of tags) {
         //   await incrementTagCounter(tag);
@@ -149,7 +159,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
           </select>
           <div className="flex flex-wrap gap-2 mt-2">
             {tags.map((tag, index) => (
-              <div key={index} className="bg-[#e2e2e6] px-3 py-1 rounded-full text-sm font-medium flex items-center">
+              <div key={index} className="bg-[#151515] px-3 py-1 rounded-full text-sm font-medium flex items-center">
                 {tag.label}
                 <span
                   className="ml-2 text-red-600 hover:text-red-700 cursor-pointer"

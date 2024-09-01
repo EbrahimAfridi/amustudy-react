@@ -187,12 +187,14 @@ export default function Home() {
                       <h3 className="font-semibold text-2xl text-left px-2 pb-3 cursor-pointer">
                         {post.title}
                       </h3>
-                      {post.tags.length !== 0 && (
-                        <span className="w-fit border-[1px] border-[#6a7180] text-[#6a7180] px-3 py-1 rounded-lg text-xs font-medium ">
-                          {" "}
-                          #{post.expand?.tags[0]?.label}
-                        </span>
-                      )}
+                      {post.tags.length !== 0 && 
+                        post.expand?.tags.map((item, index) => (
+                          <span key={index} className="w-fit border-[1px] border-[#6a7180] text-[#6a7180] px-3 py-1 rounded-lg text-xs font-medium ">
+                            #{item.label}
+                          </span>
+                        )
+                        )
+                        }
                       <p className="text-[#6a7180] mb-4 px-2 pt-3 text-sm font-medium">
                         {formatDistanceToNow(new Date(post.created))} ago •{" "}
                         <span className="font-medium">
