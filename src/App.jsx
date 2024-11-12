@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext } from "react";
 import pb from "../lib/pocketbase";
 import Navbar from "./components/Navbar";
-import { formatDistanceToNow } from "date-fns";
+// import { formatDistanceToNow } from "date-fns";
 import Chevron from "../public/chevron.png";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./utils/UserContext";
@@ -14,10 +14,13 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [tags, setTags] = useState([]);
+  const [showError, setShowError] = useState(false);
+
   const navigate = useNavigate();
 
-  const { loggedinUser, userId, updateLoggedinUser } = useContext(UserContext);
-  // console.log(loggedinUser);
+  const { loggedinUser, userInfo, updateLoggedinUser } = useContext(UserContext);
+  // const userId = userInfo.id;
+  // console.log(userId);
   const handleShowForm = () => {
     setShowForm(true);
   };
@@ -38,54 +41,54 @@ export default function Home() {
     }
   };
 
-  const handleReaction = async (postId, likeValue) => {
-    if (loggedinUser !== "") {
-      try {
-        // Optimistically update local state
-        const updatedPosts = posts.map((post) =>
-          post.id === postId
-            ? { ...post, netLikes: post.netLikes + likeValue }
-            : post
-        );
-        setPosts(updatedPosts);
+  // const handleReaction = async (postId, likeValue) => {
+  //   if (loggedinUser !== "") {
+  //     try {
+  //       // Optimistically update local state
+  //       const updatedPosts = posts.map((post) =>
+  //         post.id === postId
+  //           ? { ...post, netLikes: post.netLikes + likeValue }
+  //           : post
+  //       );
+  //       setPosts(updatedPosts);
 
-        // Check if the user has already reacted with the same type
-        const existingRecords = await pb.collection("likes").getFullList({
-          filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
-        });
+  //       // Check if the user has already reacted with the same type
+  //       const existingRecords = await pb.collection("likes").getFullList({
+  //         filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
+  //       });
 
-        if (existingRecords.length > 0) {
-          // User has already reacted with the same type, delete the reaction
-          const recordId = existingRecords[0].id;
-          await pb.collection("likes").delete(recordId);
-        } else {
-          // Create a new reaction
-          await pb.collection("likes").create({
-            like: likeValue,
-            userId: userId,
-            postId: postId,
-          });
-        }
-        // Refresh the likes count for the post
-        const netLikes = await fetchLikes(postId);
-        const finalUpdatedPosts = posts.map((post) =>
-          post.id === postId ? { ...post, netLikes } : post
-        );
-        setPosts(finalUpdatedPosts);
-      } catch (error) {
-        console.log(error);
-        // Revert optimistic UI update on error
-        const revertedPosts = posts.map((post) =>
-          post.id === postId
-            ? { ...post, netLikes: post.netLikes - likeValue }
-            : post
-        );
-        setPosts(revertedPosts);
-      }
-    } else {
-      alert("You need to login to vote on the post.");
-    }
-  };
+  //       if (existingRecords.length > 0) {
+  //         // User has already reacted with the same type, delete the reaction
+  //         const recordId = existingRecords[0].id;
+  //         await pb.collection("likes").delete(recordId);
+  //       } else {
+  //         // Create a new reaction
+  //         await pb.collection("likes").create({
+  //           like: likeValue,
+  //           userId: userId,
+  //           postId: postId,
+  //         });
+  //       }
+  //       // Refresh the likes count for the post
+  //       const netLikes = await fetchLikes(postId);
+  //       const finalUpdatedPosts = posts.map((post) =>
+  //         post.id === postId ? { ...post, netLikes } : post
+  //       );
+  //       setPosts(finalUpdatedPosts);
+  //     } catch (error) {
+  //       console.log(error);
+  //       // Revert optimistic UI update on error
+  //       const revertedPosts = posts.map((post) =>
+  //         post.id === postId
+  //           ? { ...post, netLikes: post.netLikes - likeValue }
+  //           : post
+  //       );
+  //       setPosts(revertedPosts);
+  //     }
+  //   } else {
+  //     alert("You need to login to vote on the post.");
+  //   }
+  // };
 
   const postsList = async () => {
     try {
@@ -120,7 +123,9 @@ export default function Home() {
 
       // Update state with the array of updated posts
       setPosts(updatedPosts);
+      setShowError(false);
     } catch (error) {
+      setShowError(true);
       console.error("Error fetching posts:", error);
     }
   };
@@ -136,11 +141,11 @@ export default function Home() {
     }
   };
 
-  updateLoggedinUser();
   
   useEffect(() => {
     postsList();
     tagsList();
+    updateLoggedinUser();
   }, []);
 
   const handlePostClick = (id) => {
@@ -168,11 +173,14 @@ export default function Home() {
               if (loggedinUser !== ''){
                 handleShowForm();
               }
-              }}>
+            }}>
               <img src={Plus} />
             </button>
           </div>
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap gap-5 text-sm font-bold">
+            {showError && (
+              <h1>Soemthing&apos;s wrong please comeback later!</h1>
+            )}
             {posts.map((post, index) => (
               <div
                 key={index}
@@ -196,7 +204,7 @@ export default function Home() {
                         )
                         }
                       <p className="text-[#6a7180] mb-4 px-2 pt-3 text-sm font-medium">
-                        {formatDistanceToNow(new Date(post.created))} ago •{" "}
+                        {/* {formatDistanceToNow(new Date(post.created))} ago •{" "} */}
                         <span className="font-medium">
                           {post?.expand?.user?.username}
                         </span>
@@ -218,14 +226,14 @@ export default function Home() {
                     <img
                       src={Chevron}
                       className="w-[40px] rotate-[90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
-                      onClick={() => handleReaction(post.id, 1)}
+                      // onClick={() => handleReaction(post.id, 1)}
                     />
 
                     <span>{post.netLikes}</span>
                     <img
                       src={Chevron}
                       className="w-[40px] rotate-[-90deg] p-2 rounded-md hover:bg-[#e2e2e6] cursor-pointer"
-                      onClick={() => handleReaction(post.id, -1)}
+                      // onClick={() => handleReaction(post.id, -1)}
                     />
                   </div>
                 </div>

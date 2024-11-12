@@ -17,8 +17,8 @@ const Auth = () => {
 
     return(
         
-        <div className="flex h-screen w-screen justify-center items-center bg-[#fafbfb] text-white">
-            <div className='flex flex-col justify-center items-center gap-5 bg-[#18181b] px-5 py-10 rounded-md'>
+        <div className="flex h-screen w-screen justify-center items-center bg-[#0e1116] text-white">
+            <div className='flex flex-col justify-center items-center gap-5 bg-[#1c1f26] px-5 py-10 rounded-md'>
                  {/* <h1 className='text-3xl font-bold'>AMUStudy</h1> */}
                 <h3 className='text-2xl font-semibold'>Login</h3>
                 <form onSubmit={handleSubmit} className='flex flex-col items-center gap-6'>

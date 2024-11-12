@@ -1,8 +1,7 @@
-import { useState } from "react";
 import pb from "../../lib/pocketbase";
 
 export default function useCreateUser(){
-    const [userName, setUserName] = useState(null);
+    
     
     
     async function createUser(email,username,password,passwordConfirm){
@@ -17,10 +16,7 @@ export default function useCreateUser(){
             }
             const record = await pb.collection('users').create(data);
             const authData = await pb.collection('users').authWithPassword(email, password);
-            if (authData){
-                // console.log(pb.authStore.model.username);
-                setUserName(pb.authStore.model.username);
-            }
+           
             
             console.log('User created successfully');
         }catch(error){
@@ -32,13 +28,27 @@ export default function useCreateUser(){
 
         try{
             const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
-            if (authData){
-                // console.log(pb.authStore.model.username);
-                setUserName(pb.authStore.model.username);
+            const meta = authData.meta;
+
+            if (meta.isNew) {
+              const formData = new FormData();
+          
+            //   const response = await fetch(meta.avatarUrl);
+          
+              formData.append('avatarUrl', meta.avatarUrl);
+            //   if (response.ok) {
+            //     const file = await response.blob();
+            //     formData.append('avatar', file);
+            //   }
+          
+              formData.append('name', meta.name);
+          
+              await pb.collection('users').update(authData.record.id, formData);
             }
+            
         }catch(error){
             console.log(error);
         }
     }
-    return {createUser,oauthSignup, userName};
+    return {createUser,oauthSignup};
 } 

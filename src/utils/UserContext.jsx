@@ -6,24 +6,24 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [loggedinUser, setLoggedinUser] = useState('');
-  const [ userId, setUserId ] = useState('');
+  const [ userInfo, setUserInfo ] = useState(null);
 
   const updateLoggedinUser = () => {
     if (pb.authStore.model) {
       setLoggedinUser(pb.authStore.model.username);
-      setUserId(pb.authStore.model.id);
+      setUserInfo(pb.authStore.model);
     } else {
       setLoggedinUser('');
-      setUserId('');
+      setUserInfo();
     }
   };
 
   useEffect(()=>{
-    updateLoggedinUser();
+    // updateLoggedinUser();
   },[])
 
   return (
-    <UserContext.Provider value={{ loggedinUser, userId, setLoggedinUser, updateLoggedinUser }}>
+    <UserContext.Provider value={{ loggedinUser, userInfo, setLoggedinUser, updateLoggedinUser }}>
       {children}
     </UserContext.Provider>
   );

@@ -169,7 +169,7 @@ const Post = () => {
                     {post.title}
                 </h1>
                 {post.image !== '' && <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className="w-[400px] h-auto rounded-lg" />}
-                <div className='py-5 text-sm' dangerouslySetInnerHTML={{__html: post.text}}></div>
+                <div className='py-5 text-[1rem] text-white/90' dangerouslySetInnerHTML={{__html: post.text}}></div>
                 <div className='flex justify-between w-[100%] font-bold'>
                     <div className='flex gap-5'>
                         <div className='flex items-center gap-2  bg-[#282b35] rounded-2xl mb-10'>
