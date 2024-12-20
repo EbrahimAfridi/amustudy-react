@@ -7,13 +7,14 @@ import Chevron from "../public/chevron.png";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./utils/UserContext";
 import NewForm from "./components/NewForm";
-import image from "../public/159886.jpg";
 import Plus from "../public/plus-black.png";
+import LazyImage from "./components/LazyImage";
+
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const [showForm, setShowForm] = useState(false);
   const [tags, setTags] = useState([]);
+  const [showForm, setShowForm] = useState(false);
   const [showError, setShowError] = useState(false);
 
   const navigate = useNavigate();
@@ -140,7 +141,7 @@ export default function Home() {
       console.log("Tags Error: ", error);
     }
   };
-
+  
   
   useEffect(() => {
     postsList();
@@ -211,14 +212,11 @@ export default function Home() {
                       </p>
                     </div>
                     {/* <p className="mb-4 text-left px-2">{post.text.slice(0, 300)}</p> */}
-                    {post.image !== '' ? (
-                      <div className="w-full h-[25vh] overflow-hidden flex items-center rounded-lg">
-                        <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className=" " />
-                      </div>
-                    ) : (
-                      <img
-                        src={image}
-                        className="rounded-xl mt-5 md:w-fit w-[40%]"
+                    {post.image !== "" && (
+                      <LazyImage
+                        src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`}
+                        alt="Post"
+                        className="w-full h-[25vh] overflow-hidden flex items-center rounded-lg"
                       />
                     )}
                   </div>

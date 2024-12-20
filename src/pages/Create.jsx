@@ -11,18 +11,18 @@ const Create = () => {
   const [loading, setLoading] = useState(false);
 
   const { loggedinUser, userId } = useContext(UserContext);
-  let allTags;
-  const tagsList = async () => {
-    try {
-      const records = await pb.collection("tags").getFullList({
-        sort: "-created",
-      });
-      setTags(records);
-      allTags = tagsList?.map((item) => item.label);
-    } catch (error) {
-      console.log("Tags Error: ", error);
-    }
-  };
+  // let allTags;
+  // const tagsList = async () => {
+  //   try {
+  //     const records = await pb.collection("tags").getFullList({
+  //       sort: "-created",
+  //     });
+  //     setTags(records);
+  //     allTags = tagsList?.map((item) => item.label);
+  //   } catch (error) {
+  //     console.log("Tags Error: ", error);
+  //   }
+  // };
 
   useEffect(() => {
     if (photo) {
@@ -51,18 +51,18 @@ const Create = () => {
 
   };
 
-  const handleTagChange = (e) => {
-    const selectedTag = tagsList.find(tag => tag.label === e.target.value);
-    if (selectedTag && !tags.some(tag => tag.id === selectedTag.id)) {
-      setTags([...tags, selectedTag]);
-    }
-  };
+  // const handleTagChange = (e) => {
+  //   const selectedTag = tagsList.find(tag => tag.label === e.target.value);
+  //   if (selectedTag && !tags.some(tag => tag.id === selectedTag.id)) {
+  //     setTags([...tags, selectedTag]);
+  //   }
+  // };
   
 
 
-  const handleRemoveTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
-  };
+  // const handleRemoveTag = (tagToRemove) => {
+  //   setTags(tags.filter((tag) => tag !== tagToRemove));
+  // };
 
   // const incrementTagCounter = async (tag) => {
   //   try {
@@ -97,7 +97,9 @@ const Create = () => {
     // formData.append('user', userId);
     // formData.append('title', title);
     // formData.append('text', inputText);
-    const tagIds = tags.map(elem => elem.id);
+
+    // const tagIds = tags.map(elem => elem.id);
+
     // console.log(tagIds);
     // const arraySome = ['rkdhb8hhd006e3c']
     // formData.append('tags', arraySome);
@@ -112,7 +114,7 @@ const Create = () => {
           'user': userId,
           'title': title,
           'text': inputText,
-          'tags': tagIds,
+          // 'tags': tagIds,
           'image': photo
         });
         // Increment counters for each tag used
@@ -122,7 +124,7 @@ const Create = () => {
         // Clear the form after successful post
         setTitle('');
         setInputText('');
-        setTags([]);
+        // setTags([]);
         setPhoto(null);
         setPhotoURL(null);
 
@@ -157,17 +159,20 @@ const Create = () => {
             rows='6'
             onChange={handleTextChange}
           />
-          <select
+          {/* <select
             className="w-full border-[1px] border-white/10 rounded-md p-2 bg-[#1c1f26] focus:outline-none mt-2"
             onChange={handleTagChange}
           >
-            <option value="">Select a tag</option>
-            {/* {allTags.map((tag, index) => (
-              <option key={index} value={tag}>
-                {tag}
-              </option>
-            ))} */}
-          </select>
+            // <option value="">Select a tag</option>
+            // {allTags.map((tag, index) => (
+            //   <option key={index} value={tag}>
+            //     {tag}
+            //   </option>
+            ))} 
+          </select> */}
+          <div>
+            <p>Add this to calendar</p>
+          </div>
           <div className="flex flex-wrap gap-2 mt-2">
             {tags.map((tag, index) => (
               <div key={index} className="bg-[#151515] px-3 py-1 rounded-full text-sm font-medium flex items-center">
