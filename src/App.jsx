@@ -10,7 +10,8 @@ import Chevron from "../public/chevron.png";
 import Plus from "../public/plus-black.png";
 
 export default function Home() {
-  
+  const [searchQuery, setSearchQuery] = useState("");
+
   const { posts, setPosts, events, showError } = useFetchData();
   const { handleReaction } = useHandleReaction(posts, setPosts);
 
@@ -26,13 +27,21 @@ export default function Home() {
     navigate(`/post/${id}`);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredPosts = posts.filter((post) =>
+    post.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   useEffect(() => {
     updateLoggedinUser();
   }, []);
 
   return (
     <>
-      <Navbar search={true}/>
+      <Navbar search={true} onSearch={handleSearch} />
       
       <main className="min-h-screen w-[calc(100vw_-_6px)] flex flex-col sm:flex-row sm:items-start items-center bg-[#0e1116] text-white pb-[10vh]">
         
@@ -56,7 +65,7 @@ export default function Home() {
             {showError && (
               <h1>Soemthing&apos;s wrong please comeback later!</h1>
             )}
-            {posts.map((post, index) => (
+            {filteredPosts.map((post, index) => (
               <div
                 key={index}
                 className="md:w-[23vw] flex items-center py-5 px-2 my-2 bg-[#1c1f26] rounded-2xl border-[1px] border-transparent hover:border-white/20 "

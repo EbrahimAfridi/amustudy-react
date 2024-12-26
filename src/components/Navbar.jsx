@@ -5,16 +5,17 @@ import { useContext } from "react";
 import useLogout from "../utils/useLogout";
 import ProfilePic from '../../public/profile.png';
 
-const Navbar = ({search}) => {
+const Navbar = ({search, onSearch}) => {
     const [inputText, setInputText] = useState('');
     
+    const { loggedinUser, updateLoggedinUser } = useContext(UserContext);
     const logout = useLogout();
 
     const handleTextChange = (e) => {
         setInputText(e.target.value);
+        onSearch(e.target.value);
       };
 
-    const { loggedinUser, updateLoggedinUser } = useContext(UserContext);
 
     const handleLogout = () => {
         logout();
