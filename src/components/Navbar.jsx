@@ -14,8 +14,8 @@ const Navbar = ({search}) => {
         setInputText(e.target.value);
       };
 
-    const { loggedinUser, userInfo, updateLoggedinUser } = useContext(UserContext);
-      console.log(userInfo);
+    const { loggedinUser, updateLoggedinUser } = useContext(UserContext);
+
     const handleLogout = () => {
         logout();
         updateLoggedinUser();
