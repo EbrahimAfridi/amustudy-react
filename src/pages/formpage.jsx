@@ -4,8 +4,10 @@ import UserContext from "../utils/UserContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addMonths } from "date-fns";
+import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
-const NewForm = ({ refresh, setShowForm, tagsList }) => {
+const NewFormPage = () => {
   const [inputText, setInputText] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
@@ -17,6 +19,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
   const [venue, setVenue] = useState("Online");
   const [venueDetails, setVenueDetails] = useState("");
 
+  const navigate = useNavigate();
   let date;
 
   const { loggedinUser, userInfo } = useContext(UserContext);
@@ -79,7 +82,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
         console.error("Error creating post:", error);
       } finally {
         setLoading(false);
-        refresh();
+        navigate('/');
       }
     } else {
       alert("Cannot post empty fields!!");
@@ -87,14 +90,12 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
   };
 
   return (
-    <div
-      className="flex justify-center items-center fixed w-screen h-screen bg-black/30 z-10"
-      onClick={() => setShowForm(false)}
-    >
+    <>
+    <Navbar search={false}/>
+    <div className="flex justify-center items-center w-[calc(100vw-8px)] min-h-screen pt-20 pb-10 bg-[#1c1f26]">
       <div
         id="form"
         className="w-[70vw] md:w-[50vw] bg-[#1c1f26] p-3 text-white font-medium shadow rounded-md"
-        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center justify-start gap-4 mb-4">
           <input
@@ -209,7 +210,8 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
-export default NewForm;
+export default NewFormPage;

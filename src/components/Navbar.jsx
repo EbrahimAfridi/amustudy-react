@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import { useContext } from "react";
 import useLogout from "../utils/useLogout";
+import ProfilePic from '../../public/profile.png';
 
-const Navbar = () => {
+const Navbar = ({search}) => {
     const [inputText, setInputText] = useState('');
-
     
     const logout = useLogout();
 
@@ -14,26 +14,28 @@ const Navbar = () => {
         setInputText(e.target.value);
       };
 
-    const { loggedinUser, userId, updateLoggedinUser } = useContext(UserContext);
-      
+    const { loggedinUser, userInfo, updateLoggedinUser } = useContext(UserContext);
+      console.log(userInfo);
     const handleLogout = () => {
         logout();
         updateLoggedinUser();
     }
     return(
-        <div className="h-[10vh] w-[100%] flex justify-between items-center bg-[#0e1116] border-b-[1px] border-[#1c1f26] fixed px-10 font-medium z-10">
+        <div className="h-[10vh] w-[calc(100vw-8px)] flex justify-between items-center bg-[#0e1116] border-b-[1px] border-[#1c1f26] fixed px-10 font-medium z-10">
             <Link to="/" className="hover:text-white text-[1.2rem] font-bold text-white">
-                AMUStudy
+                AMUNIFY
             </Link>
             <div className="flex items-center gap-10">
 
-                <input
-                    type="text"
-                    className="sm:inline hidden styled-input w-[30vw] py-2 pl-3 bg-[#1c1f26]  rounded-md focus:outline-none"
-                    placeholder="Search AMUStudy"
-                    value={inputText}
-                    onChange={handleTextChange}
-                    />
+                {search && (
+                    <input
+                        type="text"
+                        className="sm:inline hidden styled-input w-[30vw] py-2 pl-3 bg-[#1c1f26]  rounded-md focus:outline-none"
+                        placeholder="Search AMUStudy"
+                        value={inputText}
+                        onChange={handleTextChange}
+                        />
+                    )}
                 {loggedinUser !== '' ? (
                     <button 
                         className="logout-btn text-red-400 hover:border-red-400"
