@@ -8,6 +8,7 @@ import Create from './pages/Create.jsx';
 import { UserProvider } from "./utils/UserContext";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import './index.css'
+import NewFormPage from './pages/formpage.jsx';
 
 const appRouter = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path:"/new",
-        element:<Create />
+        element:<NewFormPage />
       },
     ]
   }
