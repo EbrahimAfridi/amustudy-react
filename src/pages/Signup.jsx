@@ -35,9 +35,9 @@ const Signup = () => {
 
   
   return (   
-    <div className='flex h-screen w-screen justify-center items-center bg-[#0e1116] text-white'>
+    <div className='flex h-screen w-screen justify-center items-center bg-primary text-white'>
       
-      <div className='flex flex-col justify-center items-center bg-[#1c1f26] px-5 py-10 rounded-md'>
+      <div className='flex flex-col justify-center items-center bg-primary-light px-5 py-10 rounded-md'>
         {/* <h1 className='font-bold text-[2rem]'>AMUStudy</h1> */}
         <h3 className='text-[1.5rem] font-semibold mb-10'>Register</h3>
         <form onSubmit= {handleSignup} className='flex flex-col items-center gap-5'>
