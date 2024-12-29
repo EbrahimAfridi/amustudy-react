@@ -138,7 +138,7 @@ const Post = () => {
     <>
       <Navbar />
       <div className="flex bg-[#1c1f26] min-h-screen  min-w-[calc(100vw_-_6px)] justify-center text-white pt-[10vh] md:pt-[15vh] md:pb-[10vh]">
-        <div className="w-[100%] md:w-[60vw] h-fit flex flex-col gap-5 border-[1px] border-white/20 md:rounded-3xl p-5 bg-[#0e1116] ">
+        <div className="w-[100%] md:w-[60vw] h-fit flex flex-col gap-5 border-[1px] border-white/20 md:rounded-3xl p-5 bg-primary">
           <div className="flex gap-5 items-center  mb-4">
             <div className="flex items-center justify-center h-[40px] w-[40px] border-[1px] border-gray-500 rounded-full">
               <img src="/profile.png" className="w-[30px]" />
@@ -159,7 +159,7 @@ const Post = () => {
           ></div>
           <div className="flex justify-between w-[100%] font-bold">
             <div className="flex gap-5">
-              <div className="flex items-center gap-2  bg-[#282b35] rounded-2xl mb-10">
+              <div className="flex items-center gap-2  bg-secondary rounded-2xl mb-10">
                 <img
                   src="/arrow-white.png"
                   alt="arrow"
@@ -178,7 +178,7 @@ const Post = () => {
                   onClick={() => handleReaction(-1)}
                 />
               </div>
-              <div className="flex items-center gap-2 px-3 bg-[#282b35] rounded-2xl mb-10 hover:bg-gray-600/40 cursor-pointer">
+              <div className="flex items-center gap-2 px-3 bg-secondary rounded-2xl mb-10 hover:bg-gray-600/40 cursor-pointer">
                 <img
                   src="/comment-white.png"
                   alt="arrow"
@@ -189,7 +189,7 @@ const Post = () => {
             </div>
             <div
               onClick={handleCopy}
-              className="flex items-center gap-2 p-3 bg-[#282b35] rounded-2xl mb-10  hover:text-purple-500 transition-all cursor-pointer"
+              className="flex items-center gap-2 p-3 bg-secondary rounded-2xl mb-10  hover:text-purple-500 transition-all cursor-pointer"
             >
               <img src="/copy.png" alt="arrow" className="w-[20px] h-[20px] " />
               <span className="text-sm">Copy</span>
