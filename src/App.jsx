@@ -52,7 +52,7 @@ export default function Home() {
       {home ? (
  
       <main className="min-h-screen w-[calc(100vw-6px)] flex flex-col sm:flex-row sm:items-start items-center bg-primary text-white overflow-hidden">
-        <div className="flex flex-col gap-5 items-start pl-2 sm:px-10 w-[100%] sm:w-[80%] pt-[15vh] rounded-md overflow-y-auto h-screen">
+        <div className="flex flex-col gap-5 items-start pl-2 sm:px-10 w-[100%] sm:w-[80%] pt-[15vh] pb-[10vh] rounded-md overflow-y-auto h-screen">
           <h1 className="text-[1.7rem] font-bold">Recent Posts</h1>
           <div className="flex flex-wrap gap-5 sm:w-fit w-full text-sm font-bold">
             {showError && (
