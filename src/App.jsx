@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
+import { useMediaQuery } from "react-responsive";
 import Navbar from "./components/Navbar";
 import LazyImage from "./components/LazyImage";
 import UserContext from "./utils/UserContext";
@@ -10,6 +11,7 @@ import Chevron from "../public/chevron.png";
 import Plus from "../public/plus-black.png";
 import HomeIcon from "../public/home-white.png";
 import CalendarIcon from "../public/calendar-white.png";
+import Events from "./components/Events";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,6 +21,7 @@ export default function Home() {
   const { handleReaction } = useHandleReaction(posts, setPosts);
   const navigate = useNavigate();
   const { loggedinUser, updateLoggedinUser } = useContext(UserContext);
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 768px)' });
 
   const handlePostClick = (id) => {
     navigate(`/post/${id}`);
@@ -32,18 +35,22 @@ export default function Home() {
     post.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleShowForm = () => {
-    navigate("/new");
-  };
-
   useEffect(() => {
     updateLoggedinUser();
   }, []);
+
+  useEffect(() => {
+    if (isLargeScreen) {
+      setHome(true);
+    }
+  }, [isLargeScreen]);
 
   return (
     <>
       <Navbar search={true} onSearch={handleSearch} post={true} />
 
+      {home ? (
+ 
       <main className="min-h-screen w-[calc(100vw-6px)] flex flex-col sm:flex-row sm:items-start items-center bg-primary text-white overflow-hidden">
         <div className="flex flex-col gap-5 items-start pl-2 sm:px-10 w-[100%] sm:w-[80%] pt-[15vh] rounded-md overflow-y-auto h-screen">
           <h1 className="text-[1.7rem] font-bold">Recent Posts</h1>
@@ -106,31 +113,14 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="hidden sm:flex flex-col items-center w-[90%] sm:w-[20%] h-screen border-l-[1px] border-[#1c1f26] overflow-y-auto">
-          <h1 className="text-gray-300 text-[20px] font-bold pt-[15vh] w-full pl-2">
-            Events Calendar
-          </h1>
-          <div className="flex flex-col gap-10 w-full pt-10 rounded-md pl-4">
-            {events.map((event, index) => (
-              <div key={index} className="flex-col w-full text-[15px]">
-                <div className="flex flex-col justify-center gap-2">
-                  <span className="font-medium text-gray-400">
-                    {new Date(event.date).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </span>
-                  <h3 className=" font-medium cursor-pointer">{event.title}</h3>
-                  <span>{event.venue}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        
+        <Events events={events} mobile={false}/>
       </main>
+      ) : (
+        <Events events={events} mobile={true}/>
+      )}
 
-      <div className="fixed bottom-1 sm:hidden flex items-center justify-around w-full h-[10vh] bg-primary rounded-3xl border-t-[1px] border-gray-600">
+      <div className="fixed bottom-1 sm:hidden flex items-center justify-around w-full h-[10vh] bg-primary text-white rounded-3xl border-t-[1px] border-gray-600">
         <div 
           className={`flex flex-col items-center cursor-pointer border-b-[3px] ${home ? "border-white" : "border-transparent" }`}
           onClick={() => setHome(true)}>
@@ -139,12 +129,12 @@ export default function Home() {
         </div>
         <div>
           <button
-            className={`sm:hidden inline rounded-lg border border-transparent px-4 py-2 text-base font-medium bg-white ${
-              loggedinUser === "" ? "cursor-not-allowed" : "cursor-pointer"
-            } transition-colors duration-200  focus:outline focus:outline-[4px] focus:outline-auto focus:outline-webkit-focus-ring-color`}
+            className="sm:hidden inline rounded-lg border border-transparent px-4 py-2 text-base font-medium bg-white transition-colors duration-200  focus:outline focus:outline-[4px] focus:outline-auto focus:outline-webkit-focus-ring-color"
             onClick={() => {
               if (loggedinUser !== "") {
-                handleShowForm();
+                navigate("/new");
+              }else{
+                navigate('/login');
               }
             }}
           >
