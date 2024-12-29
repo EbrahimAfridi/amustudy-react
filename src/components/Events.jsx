@@ -12,12 +12,12 @@ const Events = ({events, mobile}) => {
         ).isRequired,
     };
 
-    const wideScreenStyle = "hidden sm:flex flex-col items-center w-[90%] sm:w-[20%] h-screen border-l-[1px] border-[#1c1f26] overflow-y-auto";
-    const mobileScreenStyle = "flex flex-col items-center w-[calc(100vw-6px)] min-h-screen bg-primary";
+    const wideScreenStyle = "hidden sm:flex flex-col items-center w-[90%] sm:w-[20%] h-screen border-l-[1px] border-[#1c1f26] overflow-y-auto text-white";
+    const mobileScreenStyle = "flex flex-col items-center w-[calc(100vw-6px)] min-h-screen bg-primary text-white";
     return (
 
         <div className={`${mobile ? mobileScreenStyle : wideScreenStyle}`}>
-          <h1 className="text-gray-300 text-[20px] font-bold pt-[15vh] w-full pl-2">
+          <h1 className=" text-[20px] font-bold pt-[15vh] w-full pl-2">
             Events Calendar
           </h1>
           <div className="flex flex-col gap-10 w-full pt-10 rounded-md px-4">
@@ -31,9 +31,9 @@ const Events = ({events, mobile}) => {
                       year: "numeric",
                     })}
                   </span>
-                  <div className='w-1/2'>  
-                    <h3 className=" sm:font-medium font-bold sm:text-[15px] text-[20px] cursor-pointer">{event.title}</h3>
-                    <span className='sm:text-[15px] text-[12px] font-medium'>{event.venue}</span>
+                  <div className='w-1/2 sm:w-fit'>  
+                    <h3 className=" sm:font-medium font-bold sm:text-[17px] text-[20px] cursor-pointer pb-1">{event.title}</h3>
+                    <span className='sm:text-[15px] text-[12px] sm:font-normal font-medium'>{event.venue}</span>
                   </div>
                 </div>
               </div>

@@ -125,7 +125,7 @@ export default function Home() {
           className={`flex flex-col items-center cursor-pointer border-b-[3px] ${home ? "border-white" : "border-transparent" }`}
           onClick={() => setHome(true)}>
           <img src={HomeIcon} className="h-[30px] w-fit"/>
-          <span className="text-[12px]">Home</span>
+          <span className="text-[12px] text-white">Home</span>
         </div>
         <div>
           <button
@@ -145,7 +145,7 @@ export default function Home() {
           className={`flex flex-col items-center cursor-pointer border-b-[3px] ${home ? "border-transparent" : "border-white" }`}
           onClick={() => setHome(false)}>
           <img src={CalendarIcon} className="h-[30px] w-fit"/>
-          <span className="text-[12px]">Calendar</span>
+          <span className="text-[12px] text-white">Calendar</span>
         </div>
       </div>
     </>
