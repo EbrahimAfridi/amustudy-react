@@ -84,7 +84,7 @@ export default function Home() {
                       <LazyImage
                         src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`}
                         alt="Post"
-                        className="w-full h-[25vh] overflow-hidden flex items-center rounded-lg"
+                        className="h-[25vh] overflow-hidden flex items-center rounded-lg"
                       />
                     )}
                   </div>
