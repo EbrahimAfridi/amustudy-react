@@ -35,7 +35,7 @@ const Signup = () => {
 
   
   return (   
-    <div className='flex h-screen w-screen justify-center items-center bg-primary text-white'>
+    <div className='flex h-screen w-screen justify-center items-center bg-primary text-primary-text'>
       
       <div className='flex flex-col justify-center items-center bg-primary-light px-5 py-10 rounded-md'>
         {/* <h1 className='font-bold text-[2rem]'>AMUStudy</h1> */}
@@ -72,7 +72,7 @@ const Signup = () => {
             placeholder='Confirm Password'
             className='px-4 py-2 bg-transparent focus:outline-none'
           />
-          <button type="submit" className='bg-green-500 w-[100%] py-2 rounded-md text-white'>Sign up</button>
+          <button type="submit" className='bg-green-500 w-[100%] py-2 rounded-md text-primary-text'>Sign up</button>
         </form>
 
         <p className='text-sm text-gray-400 mt-5'>Or sign up with</p>

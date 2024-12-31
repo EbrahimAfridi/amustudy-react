@@ -114,7 +114,7 @@ const Form = ({refresh}) => {
         </label>
         <button
           onClick={handlePost}
-          className={`px-4 py-2 bg-blue-500 text-white rounded-lg  ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-blue-600'}`}
+          className={`px-4 py-2 bg-blue-500 text-primary-text rounded-lg  ${loggedinUser === '' ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-blue-600'}`}
         >
           {loading ? "Uploading.." : "Post"}
         </button>

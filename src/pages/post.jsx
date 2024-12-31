@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import pb from "../../lib/pocketbase";
-// import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import LazyImage from "../components/LazyImage";
+import userBlack from "../../public/userBlack.png";
+import clap from "../assets/clap.svg";
+import link from "../../public/linkBlack.png";
 import { useContext } from "react";
 
 const Post = () => {
@@ -137,64 +140,60 @@ const Post = () => {
   return (
     <>
       <Navbar />
-      <div className="flex bg-[#1c1f26] min-h-screen  min-w-[calc(100vw_-_6px)] justify-center text-white pt-[10vh] md:pt-[15vh] md:pb-[10vh]">
-        <div className="w-[100%] md:w-[60vw] h-fit flex flex-col gap-5 border-[1px] border-white/20 md:rounded-3xl p-5 bg-primary">
-          <div className="flex gap-5 items-center  mb-4">
+      <div className="flex bg-primary min-h-screen  min-w-[calc(100vw_-_6px)] justify-center text-primary-text pt-[10vh] md:pt-[15vh] md:pb-[10vh]">
+        <div className="w-[100%] md:w-[55vw] h-fit flex flex-col gap-5 border-[1px] border-white/20  p-5 ">
+          <h1 className="font-semibold text-[42px]">{post.title}</h1>
+          <div>
+
+          <div className="flex gap-5 items-center  mb-4 border-b-[1px] border-primary-dark pb-5">
             <div className="flex items-center justify-center h-[40px] w-[40px] border-[1px] border-gray-500 rounded-full">
-              <img src="/profile.png" className="w-[30px]" />
+              <img src={userBlack} className="w-[24px]" />
             </div>
             <div className="flex flex-col">
               <span className="font-medium">{username}</span>
               <p className=" text-sm">
-                {/* {post.updated ? formatDistanceToNow(new Date(post.updated)) + ' ago' : 'N/A'} */}
+                {post.updated
+                  ? formatDistanceToNow(new Date(post.updated)) + " ago"
+                  : "N/A"}
               </p>
             </div>
           </div>
-          <h1 className="font-semibold text-[2.2rem]">{post.title}</h1>
-          {post.image !== '' && <img src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`} alt="Post" className="w-[400px] h-auto rounded-lg" loading="lazy"/>}
-          
-          <div
-            className="py-5 text-[1rem] text-white/90"
-            dangerouslySetInnerHTML={{ __html: post.text }}
-          ></div>
-          <div className="flex justify-between w-[100%] font-bold">
-            <div className="flex gap-5">
-              <div className="flex items-center gap-2  bg-secondary rounded-2xl mb-10">
-                <img
-                  src="/arrow-white.png"
-                  alt="arrow"
-                  className={`w-[35px] h-[35px] rotate-[270deg] p-2 hover:rounded-full hover:bg-blue-600/40 cursor-pointer ${
-                    vote === 1 && "bg-blue-600 rounded-full"
-                  }`}
-                  onClick={() => handleReaction(1)}
-                />
-                <span className="text-sm">{netLikes}</span>
-                <img
-                  src="/arrow-white.png"
-                  alt="arrow"
-                  className={`w-[35px] h-[35px] p-2 rotate-[90deg] hover:rounded-full hover:bg-red-600/40 cursor-pointer ${
-                    vote === -1 && "bg-red-600 rounded-full"
-                  }`}
-                  onClick={() => handleReaction(-1)}
-                />
-              </div>
-              <div className="flex items-center gap-2 px-3 bg-secondary rounded-2xl mb-10 hover:bg-gray-600/40 cursor-pointer">
-                <img
-                  src="/comment-white.png"
-                  alt="arrow"
-                  className="w-[20px] h-[20px] "
-                />
-                <span className="text-sm">123</span>
-              </div>
+          <div className="flex items-center justify-between border-b-[1px] border-primary-dark pb-2">
+            <div className="flex items-center">
+
+            <img
+              src={clap}
+              alt="arrow"
+              className={`w-[40px] h-[40px] p-2 hover:rounded-full hover:bg-blue-600/40 cursor-pointer ${
+                vote === 1 && "bg-blue-600 rounded-full"
+              }`}
+              onClick={() => handleReaction(1)}
+              />
+            <span className="text-sm">{netLikes}</span>
             </div>
+
             <div
               onClick={handleCopy}
-              className="flex items-center gap-2 p-3 bg-secondary rounded-2xl mb-10  hover:text-purple-500 transition-all cursor-pointer"
+              className="flex items-center gap-2 p-3 transition-all cursor-pointer"
             >
-              <img src="/copy.png" alt="arrow" className="w-[20px] h-[20px] " />
-              <span className="text-sm">Copy</span>
+              <img src={link} alt="arrow" className="w-[20px] h-[20px] " />
+              <span className="text-sm">Copy Link</span>
             </div>
           </div>
+          </div>
+          {post.image !== "" && (
+            <img
+              src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`}
+              alt="Post"
+              className="w-[400px] h-auto rounded-lg"
+              loading="lazy"
+            />
+          )}
+
+          <div
+            className="py-5 text-[20px] text-primary-text/90 font-[source-serif] -tracking-[0.009em] leading-[32px] "
+            dangerouslySetInnerHTML={{ __html: post.text }}
+          ></div>
         </div>
       </div>
     </>

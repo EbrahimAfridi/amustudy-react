@@ -42,7 +42,7 @@ const Verify = ( { isVerified, requestVerification, checkVerified }) => {
             {!isVerified && (
                 <div className="absolute bg-slate-100 font-medium text-center text-2xl px-5 py-10 shadow-lg">
                     <h2>Click here to verify your account!</h2>
-                    <button onClick={handleVerifyClick} className="bg-blue-500 text-white px-4 py-2 mt-10 rounded-md">Verify</button>
+                    <button onClick={handleVerifyClick} className="bg-blue-500 text-primary-text px-4 py-2 mt-10 rounded-md">Verify</button>
                 </div>
             )}
         </>

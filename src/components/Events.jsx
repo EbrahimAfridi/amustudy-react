@@ -14,8 +14,8 @@ const Events = ({events, mobile}) => {
 
     const navigate = useNavigate();
 
-    const wideScreenStyle = "hidden sm:flex flex-col items-center w-[90%] sm:w-[20%] h-screen border-l-[1px] border-[#1c1f26] overflow-y-auto text-white";
-    const mobileScreenStyle = "flex flex-col items-center w-[calc(100vw-6px)] min-h-screen bg-primary text-white";
+    const wideScreenStyle = "hidden sm:flex flex-col items-center w-[90%] sm:w-[20%] h-screen border-l-[1px] border-primary-dark overflow-y-auto text-primary-text";
+    const mobileScreenStyle = "flex flex-col items-center w-[calc(100vw-6px)] min-h-screen bg-primary text-primary-text";
 
     const handleEventClick = (id) => {
         navigate(`/post/${id}`);

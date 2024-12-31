@@ -6,11 +6,19 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        lato: ['Lato', 'sans-serif'],
+      },
       colors: {
         primary: {
-          DEFAULT: '#0e1116',
-          light: '#1c1f26',
-          dark: '#0b0d11',
+          DEFAULT: '#ffffff',
+          light: '#f9fafc',
+          dark: '#f3f4f6',
+          text: '#000'
+          // DEFAULT: '#0e1116',
+          // light: '#1c1f26',
+          // dark: '#0b0d11',
+          // text: '#ffffff'
         },
         secondary: {
           DEFAULT: '#282b35',

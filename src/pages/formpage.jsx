@@ -95,7 +95,7 @@ const NewFormPage = () => {
     <div className="flex justify-center items-center w-[calc(100vw-8px)] min-h-screen pt-20 pb-10 bg-primary-light">
       <div
         id="form"
-        className="w-[70vw] md:w-[50vw] bg-primary-light p-3 text-white font-medium shadow rounded-md"
+        className="w-[70vw] md:w-[50vw] bg-primary-light p-3 text-primary-text font-medium shadow rounded-md"
       >
         <div className="flex flex-col items-center justify-start gap-4 mb-4">
           <input
@@ -122,7 +122,7 @@ const NewFormPage = () => {
             >
               
               {!dateSelected ? (
-                <span className="p-5 text-white font-medium">
+                <span className="p-5 text-primary-text font-medium">
                   Select Date
                 </span>
               ) : (
@@ -204,7 +204,7 @@ const NewFormPage = () => {
               />
             </svg>
           </label>
-          <button onClick={handlePost} className="px-4 py-2 text-white">
+          <button onClick={handlePost} className="px-4 py-2 text-primary-text">
             {loading ? "Uploading.." : "Post"}
           </button>
         </div>

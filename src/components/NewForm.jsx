@@ -93,13 +93,13 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
     >
       <div
         id="form"
-        className="w-[70vw] md:w-[50vw] bg-[#1c1f26] p-3 text-white font-medium shadow rounded-md"
+        className="w-[70vw] md:w-[50vw] bg-primary-light p-3 text-primary-text font-medium shadow rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center justify-start gap-4 mb-4">
           <input
             type="text"
-            className="w-full border-[1px] border-white/10 rounded-md p-2 bg-[#1c1f26] focus:outline-none"
+            className="w-full border-[1px] border-white/10 rounded-md p-2 bg-primary-light focus:outline-none"
             placeholder="Title"
             value={title}
             rows="2"
@@ -107,7 +107,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
           />
           <textarea
             type="text"
-            className="w-full border-[1px] border-white/10 rounded-md resize-y ml-0 p-2 bg-[#1c1f26] focus:outline-none"
+            className="w-full border-[1px] border-white/10 rounded-md resize-y ml-0 p-2 bg-primary-light focus:outline-none"
             placeholder="Start a post"
             value={inputText}
             rows="6"
@@ -121,7 +121,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
             >
               
               {!dateSelected ? (
-                <span className="p-5 text-white font-medium">
+                <span className="p-5 text-primary-text font-medium">
                   Select Date
                 </span>
               ) : (
@@ -140,7 +140,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
           <div className="flex flex-col w-full px-2">
             <label className="mb-2">Venue</label>
             <select
-              className="w-full border-[1px] border-white/10 rounded-md p-2 bg-[#1c1f26] focus:outline-none"
+              className="w-full border-[1px] border-white/10 rounded-md p-2 bg-primary-light focus:outline-none"
               onChange={(e) => setVenue(e.target.value)}
             >
               <option value="Online">Online</option>
@@ -149,7 +149,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
             {venue === "physical" && (
               <input
                 type="text"
-                className="w-full border-[1px] border-white/10 rounded-md p-2 bg-[#1c1f26] focus:outline-none mt-2"
+                className="w-full border-[1px] border-white/10 rounded-md p-2 bg-primary-light focus:outline-none mt-2"
                 placeholder="Enter Venue"
                 value={venueDetails}
                 onChange={(e) => setVenueDetails(e.target.value)}
@@ -203,7 +203,7 @@ const NewForm = ({ refresh, setShowForm, tagsList }) => {
               />
             </svg>
           </label>
-          <button onClick={handlePost} className="px-4 py-2 text-white">
+          <button onClick={handlePost} className="px-4 py-2 text-primary-text">
             {loading ? "Uploading.." : "Post"}
           </button>
         </div>
