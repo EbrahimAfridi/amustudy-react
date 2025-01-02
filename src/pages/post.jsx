@@ -142,15 +142,15 @@ const Post = () => {
       <Navbar />
       <div className="flex bg-primary min-h-screen  min-w-[calc(100vw_-_6px)] justify-center text-primary-text pt-[10vh] md:pt-[15vh] md:pb-[10vh]">
         <div className="w-[100%] md:w-[55vw] h-fit flex flex-col gap-5 border-[1px] border-white/20  p-5 ">
-          <h1 className="font-semibold text-[42px]">{post.title}</h1>
+          <h1 className="font-bold tracking-tight text-[32px] sm:text-[42px]">{post.title}</h1>
           <div>
 
-          <div className="flex gap-5 items-center  mb-4 border-b-[1px] border-primary-dark pb-5">
+          <div className="flex gap-5 items-center  mb-4 pb-2">
             <div className="flex items-center justify-center h-[40px] w-[40px] border-[1px] border-gray-500 rounded-full">
               <img src={userBlack} className="w-[24px]" />
             </div>
             <div className="flex flex-col">
-              <span className="font-medium">{username}</span>
+              <span className="font-normal">{username}</span>
               <p className=" text-sm">
                 {post.updated
                   ? formatDistanceToNow(new Date(post.updated)) + " ago"
@@ -158,7 +158,7 @@ const Post = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-between border-b-[1px] border-primary-dark pb-2">
+          <div className="flex items-center justify-between border-y-[1px] border-primary-dark ">
             <div className="flex items-center">
 
             <img
@@ -185,13 +185,13 @@ const Post = () => {
             <img
               src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`}
               alt="Post"
-              className="w-[400px] h-auto rounded-lg"
+              className="w-full h-auto rounded-lg"
               loading="lazy"
             />
           )}
 
           <div
-            className="py-5 text-[20px] text-primary-text/90 font-[source-serif] -tracking-[0.009em] leading-[32px] "
+            className="py-5 text-[18px] sm:text-[20px] text-primary-post font-source -tracking-[0.009em] leading-[32px] "
             dangerouslySetInnerHTML={{ __html: post.text }}
           ></div>
         </div>
