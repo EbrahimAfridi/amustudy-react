@@ -14,7 +14,7 @@ const NewFormPage = () => {
   const [photo, setPhoto] = useState(null);
   const [photoURL, setPhotoURL] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [dateSelected, setDateSelected] = useState(false);
   const [venue, setVenue] = useState("Online");
   const [venueDetails, setVenueDetails] = useState("");
@@ -117,24 +117,17 @@ const NewFormPage = () => {
           <div className="flex justify-between items-center w-full px-2">
             <span>Add This To Calendar</span>
             <button
-              className={`flex items-center gap-2 mt-2 border-[2px] p-0  rounded-md`}
+              className={`mt-2 p-0 rounded-md`}
               onClick={() => setDateSelected(true)}
             >
-              
-              {!dateSelected ? (
-                <span className="p-5 text-primary-text font-medium">
-                  Select Date
-                </span>
-              ) : (
-                <DatePicker
-                  selected={startDate}
-                  placeholder="Select Delivery Date"
-                  onChange={(date) => setStartDate(date)}
-                  minDate={new Date()}
-                  maxDate={addMonths(new Date(), 5)}
-                  className="rounded-md border-none font-medium bg-transparent p-5 w-full"
-                />
-              )}
+              <DatePicker
+                selected={startDate}
+                placeholderText="Select Event Date"
+                onChange={(date) => setStartDate(date)}
+                minDate={new Date()}
+                maxDate={addMonths(new Date(), 5)}
+                className="rounded-md border-[2px] font-medium bg-transparent p-5 w-full"
+              />
             </button>
           </div>
 

@@ -1,18 +1,16 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDistanceToNow } from "date-fns";
 import { useMediaQuery } from "react-responsive";
 import Navbar from "./components/Navbar";
 import LazyImage from "./components/LazyImage";
 import UserContext from "./utils/UserContext";
 import useHandleReaction from "./utils/useHandleReaction";
 import useFetchData from "./utils/useFetch";
-import Chevron from "../public/chevron.png";
 import Plus from "../public/plus-black.png";
 import HomeIcon from "../public/homeBlack.png";
 import CalendarIcon from "../public/calendarBlack.png";
 import Events from "./components/Events";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import userBlack from "../public/userBlack.png";
 
 export default function Home() {
@@ -62,11 +60,11 @@ export default function Home() {
               {filteredPosts.map((post, index) => (
                 <div
                   key={index}
-                  className="md:w-[100%] flex items-center py-5 px-2 my-2 sm:bg-primary rounded-2xl border-[1px] border-white/20  sm:border-transparent hover:border-white/20 "
+                  className="md:w-[100%] flex items-center px-5 my-2 sm:bg-primary "
                 >
                   <div
                     onClick={() => handlePostClick(post.id)}
-                    className="w-full flex justify-between gap-3 cursor-pointer border-b-[1px] "
+                    className="w-full flex justify-between gap-[10vw] cursor-pointer pb-2 border-b-[1px] "
                   >
                     <div className="flex sm:flex-row flex-col gap-5 md:inline">
                       <div>
@@ -145,7 +143,7 @@ export default function Home() {
           <span className="text-[12px] text-primary-text">Calendar</span>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
