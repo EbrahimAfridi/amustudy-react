@@ -11,7 +11,7 @@ export default function LazyImage({ src, alt, className }) {
     <div ref={ref} className={className}>
       {inView ? (
         <div className='w-[90vw] sm:w-full sm:h-full'>
-          <img src={src} alt={alt} className="w-full h-full object-fit rounded-xs" loading="lazy" />
+          <img src={src} alt={alt} className="w-full h-full object-cover rounded-xs" loading="lazy" />
         </div>
       ) : (
         <div className="placeholder bg-gray-300 w-full h-[25vh] rounded-lg"></div>

@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(()=>{
-    // updateLoggedinUser();
+    updateLoggedinUser();
   },[])
 
   return (

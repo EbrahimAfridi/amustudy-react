@@ -4,7 +4,6 @@ import { useMediaQuery } from "react-responsive";
 import Navbar from "./components/Navbar";
 import LazyImage from "./components/LazyImage";
 import UserContext from "./utils/UserContext";
-import useHandleReaction from "./utils/useHandleReaction";
 import useFetchData from "./utils/useFetch";
 import Plus from "../public/plus-black.png";
 import HomeIcon from "../public/homeBlack.png";
@@ -17,12 +16,11 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [home, setHome] = useState(true);
 
-  const { posts, setPosts, events, showError } = useFetchData();
-  const { handleReaction } = useHandleReaction(posts, setPosts);
+  const { posts, events, showError } = useFetchData();
   const navigate = useNavigate();
-  const { loggedinUser, updateLoggedinUser } = useContext(UserContext);
+  const { loggedinUser } = useContext(UserContext);
   const isLargeScreen = useMediaQuery({ query: "(min-width: 768px)" });
-
+  console.log(posts);
   const handlePostClick = (id) => {
     navigate(`/post/${id}`);
   };
@@ -35,9 +33,10 @@ export default function Home() {
     post.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  useEffect(() => {
-    updateLoggedinUser();
-  }, []);
+  // useEffect(() => {
+  //   updateLoggedinUser();
+  // }, []); 
+  //commented this here because updating user in userContext don't remember why i commented the update in user context earlier
 
   useEffect(() => {
     if (isLargeScreen) {
@@ -50,9 +49,9 @@ export default function Home() {
       <Navbar search={true} onSearch={handleSearch} post={true} />
 
       {home ? (
-        <main className="min-h-screen w-[calc(100vw-6px)] flex flex-col sm:flex-row sm:items-start items-center bg-primary text-primary-text font-lato overflow-hidden">
-          <div className="flex flex-col gap-5 items-start pl-2 sm:px-10 w-[100%] sm:w-[70%] pt-[15vh] pb-[10vh] rounded-md overflow-y-auto h-screen">
-            <h1 className="text-[1.7rem] font-bold">Recent Posts</h1>
+        <main className="min-h-screen w-[100vw] flex flex-col sm:flex-row sm:items-start items-center bg-primary text-primary-text font-lato overflow-hidden">
+          <div className="flex flex-col gap-5 items-start pl-2 sm:px-10 w-[100%] sm:w-[65%] pt-[15vh] pb-[10vh] rounded-md overflow-y-auto h-screen">
+            <h1 className="text-[1.7rem] font-bold pl-7">Recent Posts</h1>
             <div className="flex flex-col gap-5 w-full text-sm font-bold">
               {showError && (
                 <h1>Soemthing&apos;s wrong please comeback later!</h1>
@@ -64,13 +63,15 @@ export default function Home() {
                 >
                   <div
                     onClick={() => handlePostClick(post.id)}
-                    className="w-full flex justify-between gap-[10vw] cursor-pointer pb-2 border-b-[1px] "
+                    className="w-full flex justify-between gap-[10vw] sm:gap-0 cursor-pointer pb-2 border-b-[1px] "
                   >
-                    <div className="flex sm:flex-row flex-col gap-5 md:inline">
+                    <div className="flex sm:flex-row flex-col gap-5 sm:gap-0 w-3/4 md:inline">
                       <div>
                         <div className="flex items-center gap-3 mb-[16px] pl-2">
-                          <div className="flex items-center justify-center h-[20px] w-[20px] border-[1px] border-gray-500 rounded-full">
-                            <img src={userBlack} className="w-[20px]" />
+                          <div className="flex items-center justify-center h-[20px] w-[20px] border-[1px] border-gray-500 rounded-full overflow-hidden">
+                            <img 
+                               src={`${post?.expand?.user?.avatarUrl ? post.expand.user.avatarUrl : userBlack}`}
+                              className="w-[20px]" />
                           </div>
                           <span className="font-normal text-[13px]">
                             {post?.expand?.user?.username}
@@ -94,7 +95,7 @@ export default function Home() {
                       <LazyImage
                         src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`}
                         alt="Post"
-                        className="sm:h-[25vh] h-[35vw] w-[35vw] sm:w-[15vw]  overflow-hidden flex items-center rounded-lg"
+                        className="sm:h-[25vh] h-[35vw] w-[35vw] sm:w-1/4 flex items-center rounded-lg"
                       />
                     )}
                   </div>
