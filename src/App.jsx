@@ -59,11 +59,11 @@ export default function Home() {
               {filteredPosts.map((post, index) => (
                 <div
                   key={index}
-                  className="md:w-[100%] flex items-center px-5 my-2 sm:bg-primary "
+                  className="md:w-[100%] flex items-center sm:px-5 my-2 sm:bg-primary "
                 >
                   <div
                     onClick={() => handlePostClick(post.id)}
-                    className="w-full flex justify-between gap-[10vw] sm:gap-0 cursor-pointer pb-2 border-b-[1px] "
+                    className="w-full flex justify-between gap-0 cursor-pointer pb-2 border-b-[1px] "
                   >
                     <div className="flex sm:flex-row flex-col gap-5 sm:gap-0 w-3/4 md:inline">
                       <div>
@@ -77,7 +77,7 @@ export default function Home() {
                             {post?.expand?.user?.username}
                           </span>
                         </div>
-                        <h3 className="font-bold text-2xl text-left px-2 cursor-pointer">
+                        <h3 className="font-bold text-[20px] sm:text-2xl leading-[24px] text-left px-2 cursor-pointer">
                           {post.title}
                         </h3>
                         <p className="mb-4 text-left text-[16px] font-medium text-gray-600 px-2 pt-[8px]">
@@ -95,7 +95,7 @@ export default function Home() {
                       <LazyImage
                         src={`https://amustud.pockethost.io/api/files/${post.collectionId}/${post.id}/${post.image}`}
                         alt="Post"
-                        className="sm:h-[25vh] h-[35vw] w-[35vw] sm:w-1/4 flex items-center rounded-lg"
+                        className="sm:h-[25vh] h-[25vw] w-[25vw] sm:w-1/4 flex items-center sm:px-0 pt-[36px] pr-2 rounded-lg"
                       />
                     )}
                   </div>

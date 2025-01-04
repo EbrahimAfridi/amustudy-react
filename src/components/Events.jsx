@@ -32,11 +32,11 @@ const Events = ({events, mobile}) => {
             {events.map((event, index) => (
               <div 
                 key={index} 
-                className="flex-col w-full text-[15px] sm:p-0 p-3 sm:border-0 border-[1px] border-gray-700 rounded-xl cursor-pointer"
+                className="flex-col w-full text-[15px] sm:p-0 p-3 sm:border-0 border-b-[1px] border-gray-300 cursor-pointer"
                 onClick={()=>handleEventClick(event.id)}
               >
                 <div className="flex sm:flex-col flex-row sm:justify-center justify-between gap-2">
-                  <span className="font-medium sm:text-gray-400 w-1/2 sm:w-fit text-sm">
+                  <span className="font-medium sm:text-gray-400 w-1/2 sm:w-fit sm:text-sm">
                     {new Date(event.date).toLocaleDateString("en-GB", {
                       day: "2-digit",
                       month: "long",
