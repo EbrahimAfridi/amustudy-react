@@ -118,9 +118,9 @@ const Post = () => {
         console.error("Error fetching post:", error);
       }
     };
-
+    console.log(post.content);
     postView();
-    fetchLikes();
+    // fetchLikes();
   }, [postId]);
 
   const handleCopy = () => {
@@ -142,44 +142,44 @@ const Post = () => {
       <Navbar />
       <div className="flex bg-primary min-h-screen  min-w-[calc(100vw_-_6px)] justify-center text-primary-text pt-[10vh] md:pt-[15vh] md:pb-[10vh]">
         <div className="w-[100%] md:w-[55vw] h-fit flex flex-col gap-5 border-[1px] border-white/20  p-5 ">
-          <h1 className="font-bold tracking-tight text-[32px] sm:text-[42px]">{post.title}</h1>
+          <h1 className="font-bold tracking-tight text-[32px] sm:text-[42px]">
+            {post.title}
+          </h1>
           <div>
+            <div className="flex gap-5 items-center  mb-4 pb-2">
+              <div className="flex items-center justify-center h-[40px] w-[40px] border-[1px] border-gray-500 rounded-full">
+                <img src={userBlack} className="w-[24px]" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-normal">{username}</span>
+                <p className=" text-sm">
+                  {post.updated
+                    ? formatDistanceToNow(new Date(post.updated)) + " ago"
+                    : "N/A"}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between border-y-[1px] border-primary-dark ">
+              <div className="flex items-center">
+                <img
+                  src={clap}
+                  alt="arrow"
+                  className={`w-[40px] h-[40px] p-2 hover:rounded-full hover:bg-blue-600/40 cursor-pointer ${
+                    vote === 1 && "bg-blue-600 rounded-full"
+                  }`}
+                  onClick={() => handleReaction(1)}
+                />
+                <span className="text-sm">{netLikes}</span>
+              </div>
 
-          <div className="flex gap-5 items-center  mb-4 pb-2">
-            <div className="flex items-center justify-center h-[40px] w-[40px] border-[1px] border-gray-500 rounded-full">
-              <img src={userBlack} className="w-[24px]" />
+              <div
+                onClick={handleCopy}
+                className="flex items-center gap-2 p-3 transition-all cursor-pointer"
+              >
+                <img src={link} alt="arrow" className="w-[20px] h-[20px] " />
+                <span className="text-sm">Copy Link</span>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="font-normal">{username}</span>
-              <p className=" text-sm">
-                {post.updated
-                  ? formatDistanceToNow(new Date(post.updated)) + " ago"
-                  : "N/A"}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center justify-between border-y-[1px] border-primary-dark ">
-            <div className="flex items-center">
-
-            <img
-              src={clap}
-              alt="arrow"
-              className={`w-[40px] h-[40px] p-2 hover:rounded-full hover:bg-blue-600/40 cursor-pointer ${
-                vote === 1 && "bg-blue-600 rounded-full"
-              }`}
-              onClick={() => handleReaction(1)}
-              />
-            <span className="text-sm">{netLikes}</span>
-            </div>
-
-            <div
-              onClick={handleCopy}
-              className="flex items-center gap-2 p-3 transition-all cursor-pointer"
-            >
-              <img src={link} alt="arrow" className="w-[20px] h-[20px] " />
-              <span className="text-sm">Copy Link</span>
-            </div>
-          </div>
           </div>
           {post.image !== "" && (
             <img
@@ -194,6 +194,24 @@ const Post = () => {
             className="py-5 text-[18px] sm:text-[20px] text-primary-post font-source -tracking-[0.009em] leading-[32px] "
             dangerouslySetInnerHTML={{ __html: post.text }}
           ></div>
+          {post?.content &&
+            post.content.map((element, index) => {
+              console.log("Element:", element); // Debug log
+
+              if (element.type === "header") {
+                return (
+                  <h1 key={index} className="font-bold text-3xl text-black">
+                    {element.data.text}
+                  </h1>
+                );
+              } else if(element.type === "paragraph") {
+                return (
+                  <p key={index} className="text-lg text-black">
+                    {element.data.text}
+                  </p>
+                );
+              }
+            })}
         </div>
       </div>
     </>
