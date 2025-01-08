@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import pb from "../../lib/pocketbase";
 import UserContext from "../utils/UserContext";
 import DatePicker from "react-datepicker";
@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { addMonths } from "date-fns";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import Editor from "../components/Editor";
 
 const NewFormPage = () => {
   const [inputText, setInputText] = useState("");
@@ -18,7 +19,31 @@ const NewFormPage = () => {
   const [dateSelected, setDateSelected] = useState(false);
   const [venue, setVenue] = useState("Online");
   const [venueDetails, setVenueDetails] = useState("");
+  const [editorContent, setEditorContent] = useState(null);
+  const editorRef = useRef(null);
 
+  // const handleEditorSave = async () => {
+  //   if (editorRef.current) {
+  //     try {
+  //       const content = await editorRef.current.save();
+  //       setEditorContent(content.blocks);
+  //     } catch (error) {
+  //       console.error('Failed to save editor data:', error);
+  //     }
+  //   }
+  // };
+  const saveEditorContent = async () => {
+    if (editorRef.current) {
+      try {
+        const content = await editorRef.current.save();
+        return content;
+      } catch (error) {
+        console.error('Failed to save editor data:', error);
+        return null;
+      }
+    }
+    return null;
+  };
   const navigate = useNavigate();
   let date;
 
@@ -56,10 +81,12 @@ const NewFormPage = () => {
   const formData = new FormData();
 
   const handlePost = async () => {
-   
+    // await handleEditorSave();
     if (inputText !== "" && title !== "") {
       setLoading(true);
       try {
+        const content = await saveEditorContent();
+        
         // await pb.collection('posts').create(formData);
         await pb.collection("posts").create({
           user: userInfo.id,
@@ -69,6 +96,7 @@ const NewFormPage = () => {
           date: startDate,
           image: photo,
           venue: venue === "physical" ? venueDetails : venue,
+          content: content.blocks,
         });
 
         // Clear the form after successful post
@@ -77,7 +105,7 @@ const NewFormPage = () => {
         setTags([]);
         setPhoto(null);
         setPhotoURL(null);
-        setShowForm(false);
+        setEditorContent(null);
       } catch (error) {
         console.error("Error creating post:", error);
       } finally {
@@ -201,6 +229,7 @@ const NewFormPage = () => {
             {loading ? "Uploading.." : "Post"}
           </button>
         </div>
+        <Editor editorRef={editorRef}/>
       </div>
     </div>
     </>
