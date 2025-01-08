@@ -120,10 +120,10 @@ const NewFormPage = () => {
   return (
     <>
     <Navbar search={false}/>
-    <div className="flex justify-center items-center w-[calc(100vw-8px)] min-h-screen pt-20 pb-10 bg-primary-light">
+    <div className="flex justify-center items-center w-[calc(100vw-8px)] min-h-screen px-3 pt-20 pb-10 bg-primary-light text-primary-text  font-medium">
       <div
         id="form"
-        className="w-[70vw] md:w-[50vw] bg-primary-light p-3 text-primary-text font-medium shadow rounded-md"
+        className=" bg-primary-light p-3 "
       >
         <div className="flex flex-col items-center justify-start gap-4 mb-4">
           <input
@@ -137,11 +137,12 @@ const NewFormPage = () => {
           <textarea
             type="text"
             className="w-full border-[1px] border-white/10 rounded-md resize-y ml-0 p-2 bg-primary-light focus:outline-none"
-            placeholder="Start a post"
+            placeholder="Short Description"
             value={inputText}
-            rows="6"
+            rows="1"
             onChange={handleTextChange}
           />
+          <Editor editorRef={editorRef}/>
           <div className="flex justify-between items-center w-full px-2">
             <span>Add This To Calendar</span>
             <button
@@ -229,7 +230,7 @@ const NewFormPage = () => {
             {loading ? "Uploading.." : "Post"}
           </button>
         </div>
-        <Editor editorRef={editorRef}/>
+        
       </div>
     </div>
     </>
