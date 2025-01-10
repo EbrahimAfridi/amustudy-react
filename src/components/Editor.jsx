@@ -14,14 +14,14 @@ const DEFAULT_INITIAL_DATA = {
     {
       type: 'header',
       data: {
-        text: 'Welcome to your rich text editor!',
+        text: '',
         level: 1,
       },
     },
     {
       type: 'paragraph',
       data: {
-        text: 'Start writing your content here...'
+        text: ''
       }
     },
   ],
@@ -65,10 +65,11 @@ const Editor = ({editorRef}) => {
         header: {
           class: Header,
           config: {
-            placeholder: 'Enter a header',
+            placeholder: 'Enter A Header',
             levels: [1, 2, 3],
             defaultLevel: 1,
           },
+          inlineToolbar: true,
         },
         list: {
           class: List,
@@ -78,15 +79,15 @@ const Editor = ({editorRef}) => {
           class: Paragraph,
           inlineToolbar: true,
         },
-        image: {
-          class: ImageTool,
-          config: {
-            endpoints: {
-              byFile: '/uploadFile', // Your file upload endpoint
-              byUrl: '/fetchUrl',    // Your URL fetch endpoint
-            },
-          },
-        },
+        // image: {
+        //   class: ImageTool,
+        //   config: {
+        //     endpoints: {
+        //       byFile: '/uploadFile', // Your file upload endpoint
+        //       byUrl: '/fetchUrl',    // Your URL fetch endpoint
+        //     },
+        //   },
+        // },
         embed: Embed,
         table: Table,
         quote: {
@@ -101,7 +102,7 @@ const Editor = ({editorRef}) => {
     });
   };
 
-  return <div id="editor" style={{ paddingBottom: '20px' }} />;
+  return <div id="editor" style={{ paddingBottom: '20px', width: '100%' }} />;
 };
 
 export default Editor;

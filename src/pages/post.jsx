@@ -9,6 +9,7 @@ import userBlack from "../../public/userBlack.png";
 import clap from "../assets/clap.svg";
 import link from "../../public/linkBlack.png";
 import { useContext } from "react";
+import { FaCheck } from "react-icons/fa";
 
 const Post = () => {
   const [post, setPost] = useState({});
@@ -191,7 +192,7 @@ const Post = () => {
           )}
 
           <div
-            className="py-5 text-[18px] sm:text-[20px] text-primary-post font-source -tracking-[0.009em] leading-[32px] "
+            className="py-5 text-[18px] sm:text-[20px] text-primary-post -tracking-[0.009em] leading-[32px] "
             dangerouslySetInnerHTML={{ __html: post.text }}
           ></div>
           {post?.content &&
@@ -204,11 +205,82 @@ const Post = () => {
                     {element.data.text}
                   </h1>
                 );
-              } else if(element.type === "paragraph") {
+              } else if (element.type === "paragraph") {
                 return (
-                  <p key={index} className="text-lg text-black">
-                    {element.data.text}
-                  </p>
+                  <p 
+                  key={index} 
+                  className="py-5 text-[18px] sm:text-[20px] text-primary-post font-source -tracking-[0.009em] leading-[32px] "
+                  dangerouslySetInnerHTML={{ __html: element.data.text }}
+                ></p>
+                );
+              } else if (
+                element.type === "list" &&
+                element.data.style === "unordered"
+              ) {
+                return (
+                  <ul
+                    key={index}
+                    className="list-disc list-inside text-lg text-gray-700 pl-4"
+                  >
+                    {element.data.items.map((item, index) => {
+                      return (
+                        <li key={index} className="mb-1">
+                          {item.content}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                );
+              } else if (
+                element.type === "list" &&
+                element.data.style === "ordered"
+              ) {
+                return (
+                  <ol
+                    key={index}
+                    className="list-decimal list-inside text-lg text-gray-700 pl-4"
+                  >
+                    {element.data.items.map((item, index) => {
+                      return (
+                        <li key={index} className="mb-1">
+                          {item.content}
+                        </li>
+                      );
+                    })}
+                  </ol>
+                );
+              } else if (
+                element.type === "list" &&
+                element.data.style === "checklist"
+              ) {
+                return (
+                  <ul key={index} className="text-lg text-gray-700 pl-4">
+                    {element.data.items.map((item, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className="flex items-center gap-2 mb-1"
+                        >
+                          {item.meta?.checked ? (
+                            <>
+                              <FaCheck className="text-green-500" />
+
+                              <span>{item.content}</span>
+                            </>
+                          ) : (
+                            <>
+                            <div
+                              type="checkbox"
+                              className="w-4 h-4 rounded border-gray-400"
+                              disabled
+                              ></div>
+                          <span>{item.content}</span>
+                              </>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 );
               }
             })}
