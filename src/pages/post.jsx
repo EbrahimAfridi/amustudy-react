@@ -224,8 +224,8 @@ const Post = () => {
                   >
                     {element.data.items.map((item, index) => {
                       return (
-                        <li key={index} className="mb-1">
-                          {item.content}
+                        <li key={index} className="mb-1"
+                        dangerouslySetInnerHTML={{ __html: item.content}}>
                         </li>
                       );
                     })}
@@ -242,8 +242,8 @@ const Post = () => {
                   >
                     {element.data.items.map((item, index) => {
                       return (
-                        <li key={index} className="mb-1">
-                          {item.content}
+                        <li key={index} className="mb-1"
+                        dangerouslySetInnerHTML={{ __html:item.content}}>
                         </li>
                       );
                     })}
@@ -265,7 +265,7 @@ const Post = () => {
                             <>
                               <FaCheck className="text-green-500" />
 
-                              <span>{item.content}</span>
+                              <span dangerouslySetInnerHTML={{ __html:item.content}}></span>
                             </>
                           ) : (
                             <>
@@ -274,7 +274,7 @@ const Post = () => {
                               className="w-4 h-4 rounded border-gray-400"
                               disabled
                               ></div>
-                          <span>{item.content}</span>
+                          <span dangerouslySetInnerHTML={{ __html:item.content}}></span>
                               </>
                           )}
                         </li>
