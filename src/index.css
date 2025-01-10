@@ -42,8 +42,10 @@ h1 {
 .ce-toolbar{
   margin: 0 20;
 }
-.ce-block__content{
-  margin: 0 40px;
+@media (min-width: 758px) {
+  .ce-block__content {
+    margin: 0 40px;
+  }
 }
 .ce-header{
   font-size: 42px;

@@ -13,7 +13,7 @@ export default function Profile() {
   const [photoURL, setPhotoURL] = useState(null);
   
   const navigate = useNavigate();
-  console.log(username);
+  // console.log(username);
 
 
   const handlePhotoChange = (e) => {
@@ -35,7 +35,7 @@ export default function Profile() {
     if (photo) {
       updatedData.avatar = photo;
     }
-    console.log(updatedData);
+    // console.log(updatedData);
     if (Object.keys(updatedData).length > 0){
 
       try{

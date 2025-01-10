@@ -58,7 +58,7 @@ const Editor = ({editorRef}) => {
         const content = await editor.save();
         setEditorData(content);
         // Implement saving logic here if needed
-        console.log('Editor content updated:', content);
+        // console.log('Editor content updated:', content);
       },
       autofocus: true,
       tools: {

@@ -28,11 +28,11 @@ const Post = () => {
       const existingRecords = await pb.collection("likes").getFullList({
         filter: `postId = "${postId}" && userId = "${userId}"`, // never forget: "${variableName}"
       });
-      console.log(vote);
+      // console.log(vote);
       if (existingRecords.length > 0) {
         // User has already reacted with the same type, delete the reaction
         setVote(existingRecords[0].like);
-        console.log(vote);
+        // console.log(vote);
       } else {
         setVote(null);
       }
@@ -62,7 +62,7 @@ const Post = () => {
             newNetLikes -= likeValue;
             setVote(null);
             setNetLikes(newNetLikes);
-            console.log("right now");
+            // console.log("right now");
             const recordId = existingRecords[0].id;
             await pb.collection("likes").delete(recordId);
             fetchLikes(); // Refresh the likes count after updating
@@ -111,15 +111,15 @@ const Post = () => {
           expand: "user",
         });
         const username = record?.expand?.user?.username;
-        console.log(username);
+        // console.log(username);
         setUsername(username);
         setPost(record);
-        console.log(record);
+        // console.log(record);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
     };
-    console.log(post.content);
+    // console.log(post.content);
     postView();
     // fetchLikes();
   }, [postId]);

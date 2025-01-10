@@ -18,7 +18,7 @@ export default function useCreateUser(){
             const authData = await pb.collection('users').authWithPassword(email, password);
            
             
-            console.log('User created successfully');
+            // console.log('User created successfully');
         }catch(error){
             console.log(error);
         }

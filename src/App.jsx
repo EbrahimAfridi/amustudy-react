@@ -20,7 +20,7 @@ export default function Home() {
   const navigate = useNavigate();
   const { loggedinUser } = useContext(UserContext);
   const isLargeScreen = useMediaQuery({ query: "(min-width: 768px)" });
-  console.log(posts);
+  // console.log(posts);
   const handlePostClick = (id) => {
     navigate(`/post/${id}`);
   };
