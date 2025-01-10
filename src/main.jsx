@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 // import {Provider} from "react-redux";
 import App from './App.jsx';
-import Post from './pages/post.jsx';
+import Post from "./pages/Post/Post.jsx";
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import Profile from './pages/Profile.jsx';
