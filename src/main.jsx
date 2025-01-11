@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom/client'
 // import {Provider} from "react-redux";
 import App from './App.jsx';
-import Post from './pages/post.jsx';
+import Post from "./pages/Post/Post.jsx";
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
-import Create from './pages/Create.jsx';
+import Profile from './pages/Profile.jsx';
 import { UserProvider } from "./utils/UserContext";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import './index.css'
@@ -39,6 +39,10 @@ const appRouter = createBrowserRouter([
         path:"/new",
         element:<NewFormPage />
       },
+      {
+        path: "/profile",
+        element: <Profile />
+      }
     ]
   }
 ])
@@ -54,9 +58,3 @@ root.render(
       {/* </DarkModeProvider> */}
   </UserProvider>
   );
-
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-// )

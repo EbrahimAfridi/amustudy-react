@@ -17,7 +17,7 @@ const Auth = () => {
 
     return(
         
-        <div className="flex h-screen w-screen justify-center items-center bg-primary text-white">
+        <div className="flex h-screen w-screen justify-center items-center bg-primary text-primary-text">
             <div className='flex flex-col justify-center items-center gap-5 bg-primary-light px-5 py-10 rounded-md'>
                  {/* <h1 className='text-3xl font-bold'>AMUStudy</h1> */}
                 <h3 className='text-2xl font-semibold'>Login</h3>
@@ -38,7 +38,7 @@ const Auth = () => {
                     placeholder="Password"
                     />
 
-                    <button type="submit" className='bg-green-500 w-[100%] py-2 mt-5 rounded-md text-white hover:border-transparent'>Login</button>
+                    <button type="submit" className='bg-green-500 w-[100%] py-2 mt-5 rounded-md text-primary-text hover:border-transparent'>Login</button>
                 </form>
                 <p className='text-sm text-gray-400 '>Or login with</p>
                 <button onClick={handleOauth} className='cursor-pointer bg-white rounded-md w-full flex justify-center'>

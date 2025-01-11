@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import forms from '@tailwindcss/forms';
 export default {
   content: [
     "./index.html",
@@ -6,11 +7,22 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        lato: ['Lato', 'sans-serif'],
+        mont: ['Montserrat', 'sans-serif'],
+        source: ['Source Serif Pro', 'serif'],
+      },
       colors: {
         primary: {
-          DEFAULT: '#0e1116',
-          light: '#1c1f26',
-          dark: '#0b0d11',
+          DEFAULT: '#ffffff',
+          light: '#f9fafc',
+          dark: '#f3f4f6',
+          text: '#000',
+          post: '#242424',
+          // DEFAULT: '#0e1116',
+          // light: '#1c1f26',
+          // dark: '#0b0d11',
+          // text: '#ffffff'
         },
         secondary: {
           DEFAULT: '#282b35',
@@ -33,6 +45,8 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    forms,
+  ],
 }
 

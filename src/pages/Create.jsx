@@ -141,11 +141,11 @@ const Create = () => {
 
   return (
     // <div className="flex justify-center items-center w-screen h-screen bg-black/30 z-10">
-      <div id="form" className='w-full bg-[#1c1f26] p-3 text-white font-medium shadow rounded-md' onClick={(e) => e.stopPropagation()}>
+      <div id="form" className='w-full bg-primary-light p-3 text-primary-text font-medium shadow rounded-md' onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col items-center justify-start gap-4 mb-4">
           <input
             type="text"
-            className='w-full border-[1px] border-white/10 rounded-md p-2 bg-[#1c1f26] focus:outline-none'
+            className='w-full border-[1px] border-white/10 rounded-md p-2 bg-primary-light focus:outline-none'
             placeholder="Title"
             value={title}
             rows='2'
@@ -153,14 +153,14 @@ const Create = () => {
           />
           <textarea
             type="text"
-            className='w-full border-[1px] border-white/10 rounded-md resize-y ml-0 p-2 bg-[#1c1f26] focus:outline-none'
+            className='w-full border-[1px] border-white/10 rounded-md resize-y ml-0 p-2 bg-primary-light focus:outline-none'
             placeholder="Start a post"
             value={inputText}
             rows='6'
             onChange={handleTextChange}
           />
           {/* <select
-            className="w-full border-[1px] border-white/10 rounded-md p-2 bg-[#1c1f26] focus:outline-none mt-2"
+            className="w-full border-[1px] border-white/10 rounded-md p-2 bg-primary-light focus:outline-none mt-2"
             onChange={handleTagChange}
           >
             // <option value="">Select a tag</option>
@@ -214,7 +214,7 @@ const Create = () => {
           </label>
           <button
             onClick={handlePost}
-            className='px-4 py-2 text-white'
+            className='px-4 py-2 text-primary-text'
           >
             {loading ? "Uploading.." : "Post"}
           </button>
