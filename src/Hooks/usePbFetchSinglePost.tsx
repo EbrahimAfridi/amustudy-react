@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import pb from "../../lib/pocketbase";
+import { RecordModel } from "pocketbase";
 
 interface UsePbFetchSinglePostReturn {
   post: any;
@@ -10,7 +11,7 @@ interface UsePbFetchSinglePostReturn {
 export const usePbFetchSinglePost = (
   postId: string
 ): UsePbFetchSinglePostReturn => {
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState<RecordModel | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 

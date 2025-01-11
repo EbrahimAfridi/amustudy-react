@@ -36,7 +36,6 @@ export const usePbFetchLike = ({
   const fetchLikes = async () => {
     setIsLoading(true);
     setError(null);
-    console.log("kk");
 
     try {
       // Fetch total likes for the post

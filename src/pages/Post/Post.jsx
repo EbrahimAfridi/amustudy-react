@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import pb from "../../../lib/pocketbase";
 import Navbar from "../../components/Navbar";
 import { useParams } from "react-router-dom";
 import UserContext from "../../utils/UserContext";
@@ -15,6 +13,11 @@ const Post = () => {
   const { postId } = useParams();
   const { loggedinUser, userInfo } = useContext(UserContext);
   const {
+    post,
+    loading: isPostLoading,
+    error: postError,
+  } = usePbFetchSinglePost(postId);
+  const {
     netLikes,
     vote,
     isLoading: isLikesLoading,
@@ -26,25 +29,6 @@ const Post = () => {
     userId: userInfo?.id,
     loggedIn: !!loggedinUser,
   });
-
-  const {
-    post,
-    loading: isPostLoading,
-    error: postError,
-  } = usePbFetchSinglePost(postId);
-
-  const handleCopy = () => {
-    const url = window.location.href;
-    // Use the Clipboard API to copy the URL to the clipboard
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        alert("URL copied to clipboard!");
-      })
-      .catch((err) => {
-        console.error("Failed to copy: ", err);
-      });
-  };
 
   // Loading state
   if (!!isPostLoading) {
@@ -75,7 +59,6 @@ const Post = () => {
             vote={vote}
             isLoading={isLikesLoading}
             onLike={handleLike}
-            onCopy={handleCopy}
           />
           <PostImage
             collectionId={post?.collectionId}
